@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="IDmage for automatic document and image generation.">
+    <meta name="author" content="Rasmus Viitanen">
+
+    <title>Idmage</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          rel="stylesheet">
+
+  </head>
+
+<body id="page-top">
+    </div>
+        <div id="wrapper">
+
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+              <form id="post-form">
+                  <input type="submit" value="Generate!">
+                </form>
+            </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div id="svg-viewer" class="text-center">
+                </div>
+              <!-- Footer -->
+                <footer>
+                  <div class="container text-center">
+                    <p>&copy; Polydocs 2018</p>
+                  </div>
+                </footer>
+            </div>
+            <!-- /#page-content-wrapper -->
+
+    </div>
+
+      <script>
+      $('#post-form').on('submit', function(e){
+        e.preventDefault();
+        alert("ej");
+        document.getElementById("svg-viewer").innerHTML = "";
+
+        $.ajax({
+            type: "POST",
+            url: "create/",
+            data: {
+                'height': 1280,
+                'width': 720,
+                'title': "Hello"
+            },
+            success: function (response) {
+                document.getElementById("svg-viewer").appendChild(response.documentElement)
+            }
+        });
+
+      });
+      </script>
+
+  </body>
+</html>
