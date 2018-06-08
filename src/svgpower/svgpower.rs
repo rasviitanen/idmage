@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 pub mod animate {
     pub fn fade_in_out(out: &mut String){
         use std::fmt::Write;
@@ -28,6 +29,7 @@ pub mod animate {
     }
 }
 
+#[allow(dead_code)]
 pub mod text {
     extern crate textwrap;
 
@@ -77,4 +79,3 @@ pub mod text {
         );   
     }
 }
-

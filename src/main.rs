@@ -9,23 +9,15 @@ use std::io;
 
 use rocket::response::NamedFile;
 use rocket::response::content;
-use graphic::Graphic;
-use graphic::GraphicType;
-use instructions::LayoutInstruction;
 
+#[macro_use]
 mod svgpower;
-mod architect;
-mod painter;
-mod profiler;
-mod layout;
-mod request;
-mod instructions;
-mod distributions;
-mod graphic;
-mod designer;
+mod canvas;
+mod builder;
 
 #[get("/")]
 fn index() -> &'static str {
+#[macro_use]
     "Hello, world!"
 }
 
@@ -33,27 +25,12 @@ fn index() -> &'static str {
 fn canvas() -> io::Result<NamedFile> {
     NamedFile::open("static/index.html")
 }
-
+// This is a comment
 #[post("/create")]
 fn create() -> content::Xml<String> {
-    let profile = profiler::Profile::new();
-
-    let request =
-        request::Request::new(
-            1280.0, 720.0,
-            vec![
-                Graphic::new("circle",
-                             GraphicType::Text),
-            ],
-            profiler::ColorType::PRIMARY
-        )
-    ;
-
-    let blueprint = architect::Blueprint::new(profile, request);
-
-    let out = painter::build(&blueprint);
-
-    println!("{}", out);
+    let canvas = canvas::Canvas::new(1280.0, 720.0);
+    let out = builder::build(canvas);
+    println!("{:?}", out);
     content::Xml(out)
 }
 
