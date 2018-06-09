@@ -14,10 +14,11 @@ use rocket::response::content;
 mod svgpower;
 mod canvas;
 mod builder;
+mod controller;
+mod agent;
 
 #[get("/")]
 fn index() -> &'static str {
-#[macro_use]
     "Hello, world!"
 }
 
@@ -28,10 +29,10 @@ fn canvas() -> io::Result<NamedFile> {
 // This is a comment
 #[post("/create")]
 fn create() -> content::Xml<String> {
-    let canvas = canvas::Canvas::new(1280.0, 720.0);
-    let out = builder::build(canvas);
-    println!("{:?}", out);
-    content::Xml(out)
+    let mut canvas = canvas::Canvas::new(1280.0, 720.0);
+    let mut controller = controller::Controller::new(&mut canvas);
+    let out = controller.build();
+    content::Xml(out.to_string())
 }
 
 fn main() {

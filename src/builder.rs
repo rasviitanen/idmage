@@ -1,6 +1,6 @@
 use canvas::Canvas;
 
-pub fn build(canvas: Canvas) -> String {
+pub fn build(canvas: &Canvas) -> String {
     use std::fmt::Write;
     let mut out = String::new();
     let (width, height) = canvas.dimensions();
