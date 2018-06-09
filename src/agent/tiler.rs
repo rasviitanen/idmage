@@ -21,7 +21,7 @@ impl Tiler {
 }
 
 impl Agent for Tiler {
-    fn update(&self, canvas: &mut Canvas) {
+    fn update(&mut self, canvas: &mut Canvas) {
         if canvas.tiles().len() == 0 {
             if canvas.aspect_ratio() >= 21.0/9.0 {
                 // ULTRAWIDE
@@ -36,5 +36,9 @@ impl Agent for Tiler {
                 println!("{:?}", "Standard");
             }
         }
+    }
+
+    fn execute(&self) {
+        println!("{:?}", "In Tiler");
     }
 }

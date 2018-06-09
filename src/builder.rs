@@ -16,6 +16,5 @@ pub fn build(canvas: &Canvas) -> String {
             circle(cx={width/2.0} cy={height/2.0} r="10" fill={RGBA!(12, 12, 100, 0.5)})
         ]
     );
-    println!("{:#?}", canvas.dimensions());
     out
 }

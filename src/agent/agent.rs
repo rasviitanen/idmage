@@ -1,5 +1,6 @@
 use canvas::Canvas;
 
 pub trait Agent {
-    fn update(&self, canvas: &mut Canvas);
+    fn update(&mut self, canvas: &mut Canvas);
+    fn execute(&self);
 }
