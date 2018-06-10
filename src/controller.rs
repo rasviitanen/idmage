@@ -1,5 +1,4 @@
 use agent::agent::Agent;
-use agent::tiler::Tiler;
 use agent::balancer::Balancer;
 use canvas::Canvas;
 use builder;
@@ -13,14 +12,14 @@ impl<'a> Controller<'a> {
     pub fn new(canvas: &'a mut Canvas<'a>) -> Controller<'a> {
         Controller {
             canvas: canvas,
-            agents: vec!(Box::new(Tiler::new()), Box::new(Balancer::new())),
+            agents: vec!(Box::new(Balancer::new())),
         }
     }
 
     fn tick(&mut self) {
         for agent in &mut self.agents {
             agent.update(self.canvas);
-            agent.execute();
+            agent.execute(self.canvas);
         }
     }
 

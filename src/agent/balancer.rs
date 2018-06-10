@@ -2,15 +2,13 @@ use agent::agent::Agent;
 use canvas::Canvas;
 
 pub struct Balancer {
-    request: Option<Box<Fn()>>,
-    balance_constant: usize,
+    request: Option<Box<Fn(&mut Canvas)>>,
 }
 
 impl Balancer {
     pub fn new() -> Balancer {
         Balancer {
             request: None,
-            balance_constant: 10,
         }
     }
 }
@@ -27,15 +25,28 @@ impl Agent for Balancer {
             cy += tile_cy*tile.weight();
             total_mass += tile.weight();
         }
-        self.request = Some(Box::new(|| println!("{:?}", "Dynamic closure TEST in balancer")));
+
+        if total_mass > 0.0 {
+            cx /= total_mass;
+            cy /= total_mass;
+        }
+
+        // If the state has changed, we request to update the center of mass
+        if (cx, cy) != canvas.center_of_mass() {
+            self.request = request!(move |canvas| canvas.set_center_of_mass(cx, cy));
+        }
     }
 
-    fn execute(&self) {
+    fn execute(&mut self, canvas: &mut Canvas) {
         match &self.request {
             Some(req) => {
-                req();
+                println!("{:?}", "Executing request in Balancer");
+                req(canvas.borrow_mut());
             },
-            _ => {}
+            _ => {
+                println!("{:?}", "No request to be executed by Balancer");
+            }
         }
+        self.request = None;
     }
 }
