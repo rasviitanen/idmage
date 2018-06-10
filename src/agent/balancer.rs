@@ -1,8 +1,9 @@
 use agent::agent::Agent;
 use canvas::Canvas;
+use agent::request::Request;
 
 pub struct Balancer {
-    request: Option<Box<Fn(&mut Canvas)>>,
+    request: Option<Request>,
 }
 
 impl Balancer {
@@ -33,15 +34,15 @@ impl Agent for Balancer {
 
         // If the state has changed, we request to update the center of mass
         if (cx, cy) != canvas.center_of_mass() {
-            self.request = request!(move |canvas| canvas.set_center_of_mass(cx, cy));
+            self.request = Some(request!(move |canvas| canvas.set_center_of_mass(cx, cy)));
         }
     }
 
     fn execute(&mut self, canvas: &mut Canvas) {
         match &self.request {
             Some(req) => {
-                println!("{:?}", "Executing request in Balancer");
-                req(canvas.borrow_mut());
+                println!("{:?}", "Executing request for Balancer");
+                req.execute(canvas);
             },
             _ => {
                 println!("{:?}", "No request to be executed by Balancer");
