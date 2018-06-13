@@ -24,6 +24,7 @@ impl<'a> Tile<'a> {
     }
 }
 
+#[derive(Debug)]
 pub struct Canvas<'a> {
     width: f64,
     height: f64,
