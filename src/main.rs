@@ -4,7 +4,6 @@
 #[macro_use]
 extern crate svgmacro;
 extern crate rocket;
-extern crate rayon;
 
 use std::io;
 

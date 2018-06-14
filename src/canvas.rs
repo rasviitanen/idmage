@@ -56,10 +56,6 @@ impl<'a> Canvas<'a> {
         self.aspect_ratio
     }
 
-    pub fn borrow_mut(&mut self) -> &mut Canvas<'a> {
-        self
-    }
-
     pub fn set_center_of_mass(&mut self, cx: f64, cy: f64) {
         self.center_of_mass = (cx, cy);
     }

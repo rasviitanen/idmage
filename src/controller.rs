@@ -2,8 +2,8 @@ use agent::agent::Agent;
 use agent::balancer::Balancer;
 use agent::tiler::Tiler;
 use canvas::Canvas;
-use std::thread;
 use builder;
+
 pub struct Controller<'a> {
     pub canvas: &'a mut Canvas<'a>,
     agents: Vec<Box<Agent>>,    
@@ -21,7 +21,6 @@ impl<'a> Controller<'a> {
     }
 
     fn tick(&mut self) {
-        
         for agent in &mut self.agents {
             agent.update(self.canvas);
         }

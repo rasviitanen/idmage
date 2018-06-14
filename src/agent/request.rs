@@ -12,6 +12,6 @@ pub struct Request {
 
 impl Request {
     pub fn execute(&self, canvas: &mut Canvas) {
-        (self.code)(canvas.borrow_mut());
+        self.code(&canvas);
     }
 }
