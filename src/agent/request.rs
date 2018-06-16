@@ -7,11 +7,11 @@ macro_rules! request {
 }
 
 pub struct Request {
-    pub code: Box<Fn(&mut Canvas) + Send + Sync>,
+    pub code: Box<Fn(&mut Canvas)>,
 }
 
 impl Request {
     pub fn execute(&self, canvas: &mut Canvas) {
-        self.code(&canvas);
+        (self.code)(canvas);
     }
 }

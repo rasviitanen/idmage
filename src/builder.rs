@@ -13,7 +13,13 @@ pub fn build(canvas: &Canvas) -> String {
         height={height}
         viewBox={format!("0 0 {} {}", width, height)}
         xml:space="preserve") [
-            circle(cx={width/2.0} cy={height/2.0} r="10" fill={RGBA!(12, 12, 100, 0.5)})
+            @ for tile in canvas.tiles() {
+                for graphic in tile.graphics() {
+                    SVG!(out, 
+                        {graphic.element()}({graphic.attr_as_str()})
+                    );
+                }
+            };
         ]
     );
     out

@@ -19,4 +19,21 @@ impl<'a> Graphic<'a> {
     pub fn add_child(&mut self, graphic: &'a Graphic) {
         &self.children.push(graphic);
     }
+
+    pub fn element(&self) -> &String {
+        &self.element
+    }
+
+    pub fn attributes(&self) -> &Vec<String> {
+        &self.attributes
+    }
+
+    pub fn attr_as_str(&self) -> String {
+        let mut out = String::new();
+        for attribute in &self.attributes {
+            out.push_str(attribute);
+            out.push(',');
+        }
+        out
+    }
 }

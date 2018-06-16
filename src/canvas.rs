@@ -5,12 +5,16 @@ pub struct Tile<'a> {
     from: (f64, f64),
     to: (f64, f64),
     weight: f64,
-    graphics: Vec<&'a Graphic<'a>>,
+    graphics: Vec<Graphic<'a>>,
 }
 
 impl<'a> Tile<'a> {
-    pub fn graphics(&self) -> &Vec<&'a Graphic<'a>> {
+    pub fn graphics(&self) -> &Vec<Graphic<'a>> {
         &self.graphics
+    }
+
+    pub fn add_graphic(&mut self, graphic: Graphic<'a>) {
+        self.graphics.push(graphic);
     }
 
     pub fn weight(&self) -> f64 {
