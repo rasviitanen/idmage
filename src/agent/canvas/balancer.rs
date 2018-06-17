@@ -1,6 +1,6 @@
-use agent::agent::Agent;
+use agent::canvas::canvasagent::CanvasAgent;
 use canvas::Canvas;
-use agent::request::Request;
+use agent::canvas::request::Request;
 
 pub struct Balancer {
     request: Option<Request>,
@@ -14,13 +14,13 @@ impl Balancer {
     }
 }
 
-impl Agent for Balancer {
+impl CanvasAgent for Balancer {
     fn update(&mut self, canvas: &Canvas) {
         // Calculate center of mass
         let mut cx: f64 = 0.0;
         let mut cy: f64 = 0.0;
         let mut total_mass = 0.0;
-        for tile in canvas.tiles() {
+        for tile in canvas.tiles_borrow() {
             let (tile_cx, tile_cy) = tile.center();
             cx += tile_cx*tile.weight();
             cy += tile_cy*tile.weight();

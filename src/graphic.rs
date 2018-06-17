@@ -7,13 +7,21 @@ pub struct Graphic<'a> {
 }
 
 impl<'a> Graphic<'a> {
-    pub fn new(element: String) -> Graphic<'a> {
+    pub fn new(element: &str) -> Graphic<'a> {
         Graphic {
-            element,
+            element: element.to_string(),
             weight: 0.0,
             attributes: Vec::new(),
             children: Vec::new()
         }
+    }
+
+    pub fn add_weight(&mut self, weight: f64) {
+        self.weight += weight;
+    }
+
+    pub fn add_attr(&mut self, attribute: &str) {
+        &self.attributes.push(attribute.to_string());
     }
     
     pub fn add_child(&mut self, graphic: &'a Graphic) {
@@ -32,7 +40,7 @@ impl<'a> Graphic<'a> {
         let mut out = String::new();
         for attribute in &self.attributes {
             out.push_str(attribute);
-            out.push(',');
+            out.push(' ');
         }
         out
     }

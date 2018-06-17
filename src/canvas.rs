@@ -1,6 +1,5 @@
 use graphic::Graphic;
 
-#[derive(Debug)]
 pub struct Tile<'a> {
     from: (f64, f64),
     to: (f64, f64),
@@ -9,6 +8,15 @@ pub struct Tile<'a> {
 }
 
 impl<'a> Tile<'a> {
+    pub fn new(from: (f64, f64), to: (f64, f64)) -> Tile<'a> {
+        Tile {
+            from,
+            to,
+            weight: 0.0,
+            graphics: Vec::new(),
+        }
+    }
+    
     pub fn graphics(&self) -> &Vec<Graphic<'a>> {
         &self.graphics
     }
@@ -28,7 +36,6 @@ impl<'a> Tile<'a> {
     }
 }
 
-#[derive(Debug)]
 pub struct Canvas<'a> {
     width: f64,
     height: f64,
@@ -48,8 +55,12 @@ impl<'a> Canvas<'a> {
         }
     }
 
+    pub fn add_graphic(&mut self, graphic: Graphic<'a>) {
+        self.tiles[0].add_graphic(graphic);
+    }
+
     pub fn add_tile(&mut self, from: (f64, f64), to: (f64, f64)) {
-        self.tiles.push(Tile { from, to, weight: 0.0, graphics: Vec::new() });
+        self.tiles.push(Tile::new(from, to));
     }
 
     pub fn dimensions(&self) -> (f64, f64) {
@@ -68,7 +79,7 @@ impl<'a> Canvas<'a> {
         self.center_of_mass
     }
 
-    pub fn tiles(&self) -> &Vec<Tile> {
+    pub fn tiles_borrow(&self) -> &Vec<Tile<'a>> {
         &self.tiles
     }
 }

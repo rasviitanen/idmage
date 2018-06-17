@@ -1,36 +1,31 @@
-use agent::agent::Agent;
-use agent::balancer::Balancer;
-use agent::tiler::Tiler;
 use canvas::Canvas;
 use builder;
+use agent::canvas::canvasagent::CanvasAgent;
 
 pub struct Controller<'a> {
-    pub canvas: &'a mut Canvas<'a>,
-    agents: Vec<Box<Agent>>,    
+    canvas: &'a Canvas<'a>,
+    agents: Vec<Box<CanvasAgent>>
 }
 
 impl<'a> Controller<'a> {
     pub fn new(canvas: &'a mut Canvas<'a>) -> Controller<'a> {
         Controller {
-            canvas: canvas,
-            agents: vec!(Box::new(
-                Balancer::new()), 
-                Box::new(Tiler::new())
-            ),
+            canvas,
+            agents: Vec::new(),
         }
     }
 
-    fn tick(&mut self) {
+    pub fn register_agent(&mut self, agent: Box<CanvasAgent>) {
+        self.agents.push(agent);
+    }
+    
+    pub fn tick(&mut self) {
         for agent in &mut self.agents {
             agent.update(self.canvas);
         }
     }
 
-    pub fn build(&mut self) -> String {
-        for _ in 0..5 {
-            &self.tick();
-        }
-        println!("{:#?}", self.canvas);
+    pub fn build(&self) -> String {
         let out = builder::build(&self.canvas);
         out
     }

@@ -10,7 +10,6 @@ use std::io;
 use rocket::response::NamedFile;
 use rocket::response::content;
 
-#[macro_use]
 mod controller;
 #[macro_use]
 mod svgpower;

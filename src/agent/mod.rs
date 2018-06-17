@@ -1,5 +1,2 @@
-#[macro_use]
-pub mod request;
-pub mod agent;
-pub mod balancer;
-pub mod tiler;
+pub mod canvas;
+pub mod tile;

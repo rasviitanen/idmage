@@ -1,6 +1,6 @@
-use agent::agent::Agent;
+use agent::canvas::canvasagent::CanvasAgent;
 use canvas::Canvas;
-use agent::request::Request;
+use agent::canvas::request::Request;
 
 pub struct Tiler {
     request: Option<Request>,
@@ -14,10 +14,10 @@ impl Tiler {
     }
 }
 
-impl Agent for Tiler {
+impl CanvasAgent for Tiler {
     fn update(&mut self, canvas: &Canvas) {
         let (cx, cy) = canvas.center_of_mass();
-        if canvas.tiles().len() == 0 {
+        if canvas.tiles_borrow().len() == 0 {
             self.request = Some(request!(move |canvas| {
                 canvas.add_tile((cx-100.0, cy-100.0), (cx+100.0, cy+100.0))
             }));
