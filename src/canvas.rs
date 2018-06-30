@@ -1,13 +1,11 @@
-use agent::canvas::canvasagent::CanvasAgent;
-use tile::Tile;
+use graphic::Graphic;
 
 pub struct Canvas<'a> {
     width: f64,
     height: f64,
     aspect_ratio: f64,
     center_of_mass: (f64, f64),
-    tiles: Vec<Tile<'a>>,
-    agents: Vec<Box<CanvasAgent>>,
+    graphics: Vec<Graphic<'a>>
 }
 
 impl<'a> Canvas<'a> {
@@ -17,14 +15,16 @@ impl<'a> Canvas<'a> {
             height,
             aspect_ratio: width/height,
             center_of_mass: (width/2.0, height/2.0),
-            tiles: Vec::new(),
-            agents: Vec::new()
+            graphics: Vec::new()
         }
     }
 
-    pub fn add_tile(&mut self, from: (f64, f64), to: (f64, f64)){
-        let tile = Tile::new(from, to);
-        self.tiles.push(tile);
+    pub fn graphics(&self) -> &Vec<Graphic<'a>> {
+        &self.graphics
+    }
+
+    pub fn add_graphic(&mut self, graphic: Graphic<'a>) {
+        self.graphics.push(graphic);
     }
 
     pub fn dimensions(&self) -> (f64, f64) {
@@ -41,13 +41,5 @@ impl<'a> Canvas<'a> {
 
     pub fn center_of_mass(&self) -> (f64, f64) {
         self.center_of_mass
-    }
-
-    pub fn tiles_borrow(&self) -> &Vec<Tile<'a>> {
-        &self.tiles
-    }
-
-    pub fn register_agent(&mut self, agent: Box<CanvasAgent>) {
-        self.agents.push(agent);
     }
 }

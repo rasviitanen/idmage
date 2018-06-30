@@ -20,11 +20,11 @@ impl CanvasAgent for Balancer {
         let mut cx: f64 = 0.0;
         let mut cy: f64 = 0.0;
         let mut total_mass = 0.0;
-        for tile in canvas.tiles_borrow() {
-            let (tile_cx, tile_cy) = tile.center();
-            cx += tile_cx*tile.weight();
-            cy += tile_cy*tile.weight();
-            total_mass += tile.weight();
+        for graphic in canvas.graphics() {
+            let (graphic_cx, graphic_cy) = graphic.internal_center();
+            cx += graphic_cx*graphic.weight();
+            cy += graphic_cy*graphic.weight();
+            total_mass += graphic.weight();
         }
 
         if total_mass > 0.0 {

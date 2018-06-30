@@ -14,12 +14,10 @@ pub fn build(canvas: &Canvas) -> String {
             viewBox={format!("0 0 {} {}", width, height)}
             xml:space="preserve") [
             
-            @ for tile in canvas.tiles_borrow() {
-                for graphic in tile.graphics() {
-                    SVG!(out, 
-                        {graphic.element()}({graphic.attr_as_str()})
-                    );
-                }
+            @ for graphic in canvas.graphics() {
+                SVG!(out, 
+                    {graphic.element()}({graphic.attr_as_str()})
+                );
             };
         ]
     );

@@ -1,6 +1,6 @@
-use agent::tile::tileagent::TileAgent;
-use tile::Tile;
-use agent::tile::request::Request;
+use agent::canvas::canvasagent::CanvasAgent;
+use canvas::Canvas;
+use agent::canvas::request::Request;
 use graphic::Graphic;
 
 pub struct Painter {
@@ -15,23 +15,23 @@ impl Painter {
     }
 }
 
-impl TileAgent for Painter {
-    fn update(&mut self, tile: &Tile) {
-        self.request = Some(request!(move |tile| {
+impl CanvasAgent for Painter {
+    fn update(&mut self, canvas: &Canvas) {
+        self.request = Some(request!(move |canvas| {
             let mut circle = Graphic::new("circle");
             circle.add_attr("cx=\"500\"");
             circle.add_attr("cy=\"500\"");
             circle.add_attr("r=\"120\"");
             
-            tile.add_graphic(circle);
+            canvas.add_graphic(circle);
         }));
     }
 
-    fn execute(&mut self, tile: &mut Tile) {
+    fn execute(&mut self, canvas: &mut Canvas) {
         match &self.request {
             Some(req) => {
                 println!("{:?}", "Executing request for Balancer");
-                req.execute(tile);
+                req.execute(canvas);
             },
             _ => {
                 println!("{:?}", "No request to be executed by Balancer");

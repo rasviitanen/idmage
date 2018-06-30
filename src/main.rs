@@ -18,7 +18,6 @@ mod agent;
 mod builder;
 mod canvas;
 mod graphic;
-mod tile;
 
 #[get("/")]
 fn index() -> &'static str {

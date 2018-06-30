@@ -2,6 +2,7 @@
 pub struct Graphic<'a> {
     element: String,
     weight: f64,
+    center: (f64, f64),
     attributes: Vec<String>,
     children: Vec<&'a Graphic<'a>>
 }
@@ -11,6 +12,7 @@ impl<'a> Graphic<'a> {
         Graphic {
             element: element.to_string(),
             weight: 0.0,
+            center: (0.0, 0.0),
             attributes: Vec::new(),
             children: Vec::new()
         }
@@ -18,6 +20,14 @@ impl<'a> Graphic<'a> {
 
     pub fn add_weight(&mut self, weight: f64) {
         self.weight += weight;
+    }
+
+    pub fn weight(&self) -> (f64) {
+        self.weight
+    }
+
+    pub fn internal_center(&self) -> (f64, f64) {
+        self.center
     }
 
     pub fn add_attr(&mut self, attribute: &str) {
