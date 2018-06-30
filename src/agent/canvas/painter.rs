@@ -16,14 +16,14 @@ impl Painter {
 }
 
 impl CanvasAgent for Painter {
-    fn update(&mut self, canvas: &Canvas) {
-        self.request = Some(request!(move |canvas| {
+    fn update(&mut self, _: &Canvas) {
+        self.request = Some(request!(move |cv| {
             let mut circle = Graphic::new("circle");
             circle.add_attr("cx=\"500\"");
             circle.add_attr("cy=\"500\"");
             circle.add_attr("r=\"120\"");
             
-            canvas.add_graphic(circle);
+            cv.add_graphic(circle);
         }));
     }
 

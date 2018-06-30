@@ -3,7 +3,7 @@ use builder;
 use agent::canvas::canvasagent::CanvasAgent;
 
 pub struct Controller<'a> {
-    canvas: &'a Canvas<'a>,
+    canvas: &'a mut Canvas<'a>,
     agents: Vec<Box<CanvasAgent>>
 }
 
@@ -22,6 +22,7 @@ impl<'a> Controller<'a> {
     pub fn tick(&mut self) {
         for agent in &mut self.agents {
             agent.update(self.canvas);
+            agent.execute(self.canvas)
         }
     }
 
