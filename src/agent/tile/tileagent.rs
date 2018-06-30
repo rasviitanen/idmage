@@ -1,4 +1,4 @@
-use canvas::Tile;
+use tile::Tile;
 
 pub trait TileAgent {
     fn update(&mut self, tile: &Tile);

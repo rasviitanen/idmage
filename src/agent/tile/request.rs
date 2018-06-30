@@ -1,4 +1,4 @@
-use canvas::Tile;
+use tile::Tile;
 
 macro_rules! request {
     ($e:expr) => {{

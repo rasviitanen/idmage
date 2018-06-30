@@ -1,5 +1,5 @@
 use agent::tile::tileagent::TileAgent;
-use canvas::Tile;
+use tile::Tile;
 use agent::tile::request::Request;
 use graphic::Graphic;
 

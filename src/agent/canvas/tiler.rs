@@ -19,7 +19,7 @@ impl CanvasAgent for Tiler {
         let (cx, cy) = canvas.center_of_mass();
         if canvas.tiles_borrow().len() == 0 {
             self.request = Some(request!(move |canvas| {
-                canvas.add_tile((cx-100.0, cy-100.0), (cx+100.0, cy+100.0))
+                canvas.add_tile((cx-100.0, cy-100.0), (cx+100.0, cy+100.0));
             }));
         }
     }
