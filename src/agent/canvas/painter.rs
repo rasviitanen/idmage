@@ -16,25 +16,24 @@ impl Painter {
 }
 
 impl CanvasAgent for Painter {
-    fn update(&mut self, _: &Canvas) {
+    fn update(&mut self, canvas: &Canvas) {
         self.request = Some(request!(move |cv| {
-            let mut circle = Graphic::new("circle");
-            circle.add_attr("cx=\"500\"");
-            circle.add_attr("cy=\"500\"");
-            circle.add_attr("r=\"120\"");
-            
-            cv.add_graphic(circle);
+            let mut rect = Graphic::new("rect");
+            rect.add_attr(ATTR!("width", 1920.0));
+            rect.add_attr(ATTR!("height", 1080.0));
+            rect.add_attr(ATTR!("fill", "#000000"));
+            cv.add_graphic(rect);
         }));
     }
 
     fn execute(&mut self, canvas: &mut Canvas) {
         match &self.request {
             Some(req) => {
-                println!("{:?}", "Executing request for Balancer");
+                println!("{:?}", "Executing request for Painter");
                 req.execute(canvas);
             },
             _ => {
-                println!("{:?}", "No request to be executed by Balancer");
+                println!("{:?}", "No request to be executed by Painter");
             }
         }
         self.request = None;

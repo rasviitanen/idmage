@@ -1,15 +1,15 @@
 use graphic::Graphic;
 
-pub struct Canvas<'a> {
+pub struct Canvas {
     width: f64,
     height: f64,
     aspect_ratio: f64,
     center_of_mass: (f64, f64),
-    graphics: Vec<Graphic<'a>>
+    graphics: Vec<Graphic>
 }
 
-impl<'a> Canvas<'a> {
-    pub fn new(width: f64, height:f64) -> Canvas<'a> {
+impl Canvas {
+    pub fn new(width: f64, height:f64) -> Canvas {
         Canvas {
             width,
             height,
@@ -19,11 +19,11 @@ impl<'a> Canvas<'a> {
         }
     }
 
-    pub fn graphics(&self) -> &Vec<Graphic<'a>> {
+    pub fn graphics(&self) -> &Vec<Graphic> {
         &self.graphics
     }
 
-    pub fn add_graphic(&mut self, graphic: Graphic<'a>) {
+    pub fn add_graphic(&mut self, graphic: Graphic) {
         self.graphics.push(graphic);
     }
 
