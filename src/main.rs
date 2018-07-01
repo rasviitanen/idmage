@@ -1,9 +1,11 @@
+#![feature(extern_prelude)]
 #![feature(plugin)]
 #![plugin(rocket_codegen)]
 
 #[macro_use]
 extern crate svgmacro;
 extern crate rocket;
+extern crate rand;
 
 use std::io;
 

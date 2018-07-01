@@ -17,12 +17,12 @@ impl Painter {
 
 impl CanvasAgent for Painter {
     fn update(&mut self, canvas: &Canvas) {
-        self.request = Some(request!(move |cv| {
+        self.request = Some(request!(move |canvas| {
             let mut rect = Graphic::new("rect");
-            rect.add_attr(ATTR!("width", 1920.0));
-            rect.add_attr(ATTR!("height", 1080.0));
+            rect.add_attr(ATTR!("width", canvas.dimensions().0));
+            rect.add_attr(ATTR!("height", canvas.dimensions().1));
             rect.add_attr(ATTR!("fill", "#000000"));
-            cv.add_graphic(rect);
+            canvas.add_graphic(rect);
         }));
     }
 
