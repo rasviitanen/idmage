@@ -1,14 +1,14 @@
 #[derive(Debug)]
-pub struct Graphic<'a> {
+pub struct Graphic {
     element: String,
     weight: f64,
     center: (f64, f64),
     attributes: Vec<String>,
-    children: Vec<&'a Graphic<'a>>
+    children: Vec<Graphic>
 }
 
-impl<'a> Graphic<'a> {
-    pub fn new(element: &str) -> Graphic<'a> {
+impl Graphic {
+    pub fn new(element: &str) -> Graphic {
         Graphic {
             element: element.to_string(),
             weight: 0.0,
@@ -26,16 +26,20 @@ impl<'a> Graphic<'a> {
         self.weight
     }
 
-    pub fn internal_center(&self) -> (f64, f64) {
+    pub fn absolute_center(&self) -> (f64, f64) {
         self.center
     }
 
-    pub fn add_attr(&mut self, attribute: &str) {
-        &self.attributes.push(attribute.to_string());
+    pub fn add_attr(&mut self, attribute: String) {
+        &self.attributes.push(attribute);
     }
     
-    pub fn add_child(&mut self, graphic: &'a Graphic) {
-        &self.children.push(graphic);
+    pub fn add_child(&mut self, graphic: Graphic) {
+        self.children.push(graphic);
+    }
+
+    pub fn children(&self) -> &Vec<Graphic> {
+        &self.children
     }
 
     pub fn element(&self) -> &String {
