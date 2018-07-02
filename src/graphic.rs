@@ -26,7 +26,11 @@ impl Graphic {
         self.weight
     }
 
-    pub fn absolute_center(&self) -> (f64, f64) {
+    pub fn set_focal_point(&mut self, x: f64, y: f64) {
+        self.center = (x, y);
+    }
+
+    pub fn focal_point(&self) -> (f64, f64) {
         self.center
     }
 

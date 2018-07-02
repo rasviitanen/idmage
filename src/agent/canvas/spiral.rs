@@ -35,29 +35,21 @@ impl CanvasAgent for Spiral {
     fn update(&mut self, canvas: &Canvas) {
         self.request = Some(request!(move |canvas| {
             let (width, height) = canvas.dimensions();
-            let mut group = Graphic::new("g");
             let mut coord: (f64, f64);
             let mut circle: Graphic;
-            let mut spiral_selection: i32;
-            spiral_selection = rand::thread_rng().gen_range(0, 2);
 
-            for t in 120..300 {
+            for t in 120..144 {
                 circle = Graphic::new("circle");
-                
-                if spiral_selection == 0 {
-                    coord = log_spiral(t as f64, width/2.0, height/2.0);
-                } else {
-                    coord = log_spiral_2(t as f64, width/2.0, height/2.0);
-                }
-                
+                coord = log_spiral(t as f64, width/2.0, height/2.0);
                 circle.add_attr(ATTR!("r", 3));
                 circle.add_attr(ATTR!("cx", coord.0));
                 circle.add_attr(ATTR!("cy", coord.1));
                 circle.add_attr(ATTR!("fill", RGBA!(120, (coord.1/width)*255.0, (coord.0/height)*255.0, 1)));
-                group.add_child(circle);
+                circle.set_focal_point(coord.0, coord.1);
+                circle.add_weight(1.0);
                 
+                canvas.add_graphic(circle);            
             }
-            canvas.add_graphic(group);
         }));
     }
 

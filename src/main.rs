@@ -41,8 +41,8 @@ fn generate() -> content::Xml<String> {
     let mut canvas = canvas::Canvas::new(1920.0, 1080.0);
     let mut controller = controller::Controller::new(&mut canvas);
     controller.register_agent(Box::new(Painter::new()));
-    controller.register_agent(Box::new(Balancer::new()));
     controller.register_agent(Box::new(Spiral::new()));
+    controller.register_agent(Box::new(Balancer::new()));
     controller.tick();
     let out = controller.build();
     content::Xml(out.to_string())
