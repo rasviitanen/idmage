@@ -9,5 +9,5 @@ The API enables:
 * Visualisation of large data-sets in vector format.
 * Automatic layout of any quadratic entity, such as a poster.
 * Store repetitive SVGs as code instead of SVG-files. (Saves space, and enables easy manipulation)
-* Since the SVG is served over HTTP, a website could generate a new banner for each refresh.
+* Serve graphics without storage.
 * ...
