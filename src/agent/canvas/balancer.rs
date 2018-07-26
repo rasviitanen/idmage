@@ -22,7 +22,7 @@ impl CanvasAgent for Balancer {
         let mut total_mass = 0.0;
 
         for graphic in canvas.graphics() {
-            let (graphic_cx, graphic_cy) = graphic.absolute_center();
+            let (graphic_cx, graphic_cy) = graphic.focal_point();
             cx += graphic_cx*graphic.weight();
             cy += graphic_cy*graphic.weight();
             total_mass += graphic.weight();
