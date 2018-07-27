@@ -33,6 +33,9 @@ pub fn build(canvas: &Canvas) -> String {
 fn construct(out: &mut String, graphic: &Graphic) {
     SVG!(out, 
         {graphic.element()}({graphic.attr_as_str()}) [
+            @ for text in graphic.text() {
+                SVG!(out, text);
+            };
             @ for child in graphic.children() {
                 construct(out, child)
             };
