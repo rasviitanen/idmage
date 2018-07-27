@@ -1,6 +1,9 @@
 # Automated SVG generaton with idmage
 Idmage is a tool for creating graphics by sending a HTTP request. The tool uses a visual identity as well as a smart expert-system do generate its designs. This way, images (such that follows some visual identities) can easily be created with a different look every time, while still following the visual guidelines.
 
+Preview:
+<img src="./test.png">
+
 The API enables:
 * Createon of graphics that is difficult to design in e.g. Adobe Illustrator, such as fractals.
 * Generate unique avatars (like those found on Github or Slack).
