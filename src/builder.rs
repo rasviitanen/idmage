@@ -16,6 +16,12 @@ pub fn build(canvas: &Canvas) -> String {
             height={height}
             viewBox={format!("0 0 {} {}", width, height)}
             xml:space="preserve") [
+                defs [
+                    linearGradient (id="MyGrad" x1="0%" y1="0%" x2="100%" y2="0%")[
+                        stop (offset="20%" stop-color="white")
+                        stop (offset="80%" stop-color="blue")
+                    ]
+                ]
                 @ for graphic in canvas.graphics() {
                     construct(&mut out, graphic);
                 };
@@ -27,6 +33,9 @@ pub fn build(canvas: &Canvas) -> String {
 fn construct(out: &mut String, graphic: &Graphic) {
     SVG!(out, 
         {graphic.element()}({graphic.attr_as_str()}) [
+            @ for text in graphic.text() {
+                SVG!(out, text);
+            };
             @ for child in graphic.children() {
                 construct(out, child)
             };

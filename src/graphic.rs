@@ -4,6 +4,7 @@ pub struct Graphic {
     weight: f64,
     center: (f64, f64),
     attributes: Vec<String>,
+    text: Vec<String>,
     children: Vec<Graphic>
 }
 
@@ -13,6 +14,7 @@ impl Graphic {
             element: element.to_string(),
             weight: 0.0,
             center: (0.0, 0.0),
+            text: Vec::new(),
             attributes: Vec::new(),
             children: Vec::new()
         }
@@ -26,7 +28,19 @@ impl Graphic {
         self.weight
     }
 
-    pub fn absolute_center(&self) -> (f64, f64) {
+    pub fn text(&self) -> &Vec<String> {
+        &self.text
+    }
+
+    pub fn add_text(&mut self, text: &str) {
+        self.text.push(text.to_string());
+    }
+
+    pub fn set_focal_point(&mut self, x: f64, y: f64) {
+        self.center = (x, y);
+    }
+
+    pub fn focal_point(&self) -> (f64, f64) {
         self.center
     }
 

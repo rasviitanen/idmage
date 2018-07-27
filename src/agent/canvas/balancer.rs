@@ -20,8 +20,9 @@ impl CanvasAgent for Balancer {
         let mut cx: f64 = 0.0;
         let mut cy: f64 = 0.0;
         let mut total_mass = 0.0;
+
         for graphic in canvas.graphics() {
-            let (graphic_cx, graphic_cy) = graphic.absolute_center();
+            let (graphic_cx, graphic_cy) = graphic.focal_point();
             cx += graphic_cx*graphic.weight();
             cy += graphic_cy*graphic.weight();
             total_mass += graphic.weight();
@@ -49,6 +50,7 @@ impl CanvasAgent for Balancer {
                 println!("{:?}", "No request to be executed by Balancer");
             }
         }
+        println!("{:?}", canvas.center_of_mass());
         self.request = None;
     }
 }
