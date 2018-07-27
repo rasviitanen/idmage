@@ -17,8 +17,8 @@ pub fn build(canvas: &Canvas) -> String {
             viewBox={format!("0 0 {} {}", width, height)}
             xml:space="preserve") [
                 defs [
-                    linearGradient (id="MyGrad" x1="0" y1="0" x2="1" y2="1")[
-                        stop (offset="20%" stop-color="red")
+                    linearGradient (id="MyGrad" x1="0%" y1="0%" x2="100%" y2="0%")[
+                        stop (offset="20%" stop-color="white")
                         stop (offset="80%" stop-color="blue")
                     ]
                 ]
