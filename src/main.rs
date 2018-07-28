@@ -24,6 +24,7 @@ mod agent;
 mod builder;
 mod canvas;
 mod graphic;
+mod profile;
 
 #[get("/")]
 fn index() -> &'static str {
@@ -35,7 +36,6 @@ fn canvas() -> io::Result<NamedFile> {
     NamedFile::open("static/index.html")
 }
 
-// This is a comment
 #[get("/generate")]
 fn generate() -> content::Xml<String> {
     let mut canvas = canvas::Canvas::new(1920.0, 640.0);

@@ -1,11 +1,13 @@
 use graphic::Graphic;
+use profile::Profile;
 
 pub struct Canvas {
     width: f64,
     height: f64,
     aspect_ratio: f64,
     center_of_mass: (f64, f64),
-    graphics: Vec<Graphic>
+    graphics: Vec<Graphic>,
+    profile: Profile,
 }
 
 impl Canvas {
@@ -15,8 +17,13 @@ impl Canvas {
             height,
             aspect_ratio: width/height,
             center_of_mass: (width/2.0, height/2.0),
-            graphics: Vec::new()
+            graphics: Vec::new(),
+            profile: Profile::new(),
         }
+    }
+
+    pub fn profile(&self) -> &Profile {
+        &self.profile
     }
 
     pub fn graphics(&self) -> &Vec<Graphic> {

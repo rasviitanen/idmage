@@ -14,7 +14,24 @@
           rel="stylesheet">
 
   </head>
+<style>
 
+  body {
+    font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    position: relative;
+    color: dimgray;
+    background-color: whitesmoke;
+    overflow-x: hidden;
+  }
+
+  #svg-viewer svg{
+    width: 30%;
+    height: auto;
+    margin: 15px;
+    box-shadow: 1px 3px 15px black;
+  }
+
+</style>
 <body id="page-top">
     </div>
         <div id="wrapper">
@@ -29,12 +46,12 @@
 
             <!-- Page Content -->
             <div id="page-content-wrapper">
-                <div id="svg-viewer" class="text-center">
+                <div id="svg-viewer">
                 </div>
               <!-- Footer -->
                 <footer>
-                  <div class="container text-center">
-                    <p>&copy; Polydocs 2018</p>
+                  <div class="container text-center" bottom="0px">
+                    <p>&copy; Picaas 2018</p>
                   </div>
                 </footer>
             </div>
@@ -46,19 +63,21 @@
       $('#post-form').on('submit', function(e){
         e.preventDefault();
         document.getElementById("svg-viewer").innerHTML = "";
-
-        $.ajax({
-            type: "POST",
-            url: "create/",
-            data: {
-                'height': 1280,
-                'width': 720,
-                'title': "Hello"
-            },
-            success: function (response) {
-                document.getElementById("svg-viewer").appendChild(response.documentElement)
-            }
-        });
+        
+        for (var i=0; i < 24; i++) {
+          $.ajax({
+              type: "POST",
+              url: "create/",
+              data: {
+                  'height': 640,
+                  'width': 720,
+                  'title': "Hello"
+              },
+              success: function (response) {
+                  document.getElementById("svg-viewer").appendChild(response.documentElement)
+              }
+          });
+        }
 
       });
       </script>

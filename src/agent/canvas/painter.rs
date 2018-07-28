@@ -76,8 +76,8 @@ fn circle_network(color1: &str, color2: &str, color3: &str, v: &Vec<((f64, f64),
     let mut polygon: Graphic;
 
     c1 = v_iter.next().unwrap();
-    
     while v.len() - 1 > i {
+
         c2 = v_iter.next().unwrap();
 
         p1 = c1.0;
@@ -93,6 +93,7 @@ fn circle_network(color1: &str, color2: &str, color3: &str, v: &Vec<((f64, f64),
         circle1.add_attr(ATTR!("cx", p1.0));
         circle1.add_attr(ATTR!("cy", p1.1));
         circle1.add_attr(ATTR!("r", r1));
+
 
         circle2 = Graphic::new("circle");
         circle2.add_attr(ATTR!("cx", p2.0));
@@ -138,13 +139,6 @@ fn circle_network(color1: &str, color2: &str, color3: &str, v: &Vec<((f64, f64),
     parent
 }
 
-pub fn log_spiral(t: f64, cx: f64, cy: f64) -> (f64, f64) {
-    let x = 0.1*f64::consts::E.powf(0.04*t)* t.cos();
-    let y = 0.1*f64::consts::E.powf(0.04*t)* t.sin();
-
-    (x + cx, y + cy)
-}
-
 impl Painter {
     pub fn new() -> Painter {
         Painter {
@@ -164,7 +158,6 @@ impl CanvasAgent for Painter {
             let mut group = Graphic::new("g");
             let mut circle_list = Vec::new();
 
-            
             let mut position: (f64, f64);
             let mut radius: f64;
 
@@ -173,43 +166,47 @@ impl CanvasAgent for Painter {
             background.add_attr(ATTR!("width", width));
             background.add_attr(ATTR!("height", height));
 
-            background.add_attr(ATTR!("fill", "#04011A"));
+            background.add_attr(ATTR!("fill", &canvas.profile().background_colors[0]));
 
             let mut text = Graphic::new("text");
 
             text.add_attr(ATTR!("font-size", 112));
-            text.add_attr(ATTR!("font-family", "Zilla Slab"));
+            text.add_attr(ATTR!("font-family", &canvas.profile().font_family[0]));
             text.add_attr(ATTR!("font-weight", "Bold"));
 
-            text.add_text("Picaas");
-            text.add_attr(ATTR!("x", 350));
-            text.add_attr(ATTR!("y", 450));
+            text.add_text(&canvas.profile().name);
+            text.add_attr(ATTR!("x", width/4.0));
+            text.add_attr(ATTR!("y", 2.0*height/3.0));
             text.add_attr(ATTR!("text-anchor", "middle"));
-            text.add_attr(ATTR!("fill", "white"));
+            text.add_attr(ATTR!("fill", &canvas.profile().text_colors[0]));
 
             let mut text_small = Graphic::new("text");
 
-            text_small.add_attr(ATTR!("font-size", 32));
-            text_small.add_attr(ATTR!("font-family", "Zilla Slab"));
-            text_small.add_text("Generated graphics");
-            text_small.add_attr(ATTR!("x", 350));
-            text_small.add_attr(ATTR!("y", 490));
+            text_small.add_attr(ATTR!("font-size", 32.0));
+            text_small.add_attr(ATTR!("font-family", &canvas.profile().font_family[0]));
+            text_small.add_text(&canvas.profile().slogan);
+            text_small.add_attr(ATTR!("x", width/4.0));
+            text_small.add_attr(ATTR!("y", 2.0*height/3.0 + 44.0));
             text_small.add_attr(ATTR!("text-anchor", "middle"));
 
-            text_small.add_attr(ATTR!("fill", "yellow"));
+            text_small.add_attr(ATTR!("fill", &canvas.profile().text_colors[1]));
 
             for _ in 0..rng.gen_range(3, 7) {
                 position = (rng.gen_range(width/4.0, width + 100.0), rng.gen_range(0.0, height + 100.0));
-                radius = rng.gen_range(5.0, 50.0);
+                radius = rng.gen_range(1.0, 6.0);
                 circle_list.push((position, radius));
             } 
 
-            group.add_child(circle_network("#0F0461", "#1E4FF2", "yellow", &circle_list));
+            group.add_child(circle_network(
+                &canvas.profile().primary_colors[0], 
+                &canvas.profile().primary_colors[1], 
+                &canvas.profile().primary_colors[2], 
+                &circle_list));
+
             canvas.add_graphic(background);
             canvas.add_graphic(group);
             canvas.add_graphic(text);
             canvas.add_graphic(text_small);
-
         }));
     }
 
