@@ -10,6 +10,7 @@ pub fn build(canvas: &Canvas) -> String {
     SVG!(out,
         svg (version="1.1"
             xmlns="http://www.w3.org/2000/svg" 
+            xmlns:xhtml="http://www.w3.org/1999/xhtml"
             xmlns:xlink="http://www.w3.org/1999/xlink" 
             x="0px" y="0px"
             width={width}

@@ -22,7 +22,8 @@ impl<'a> Controller<'a> {
     pub fn tick(&mut self) {
         for agent in &mut self.agents {
             agent.update(self.canvas);
-            agent.execute(self.canvas)
+            agent.execute(self.canvas);
+            println!("{:?}", &self.canvas.get_weight_grid());
         }
     }
 
