@@ -1,10 +1,7 @@
-use std::f64;
-
 use agent::canvas::canvasagent::CanvasAgent;
 use canvas::Canvas;
 use agent::canvas::request::Request;
 use graphic::Graphic;
-use rand::prelude::*;
 
 pub struct Painter {
     request: Option<Request>,
@@ -30,12 +27,12 @@ impl CanvasAgent for Painter {
             background.add_attr(ATTR!("width", width));
             background.add_attr(ATTR!("height", height));
 
-            background.add_attr(ATTR!("fill", &canvas.profile().background_colors[0]));
+            background.add_attr(ATTR!("fill", &canvas.profile().background_colors()[0]));
 
             let mut text = Graphic::new("text");
 
             text.add_attr(ATTR!("font-size", 64));
-            text.add_attr(ATTR!("font-family", &canvas.profile().font_family[0]));
+            text.add_attr(ATTR!("font-family", &canvas.profile().font_family()[0]));
 
             group.add_child(canvas.profile().main_background(0.0, 0.0, width, height));
             group.add_child(canvas.profile().logo(width/2.0, height/2.0, 84.0));

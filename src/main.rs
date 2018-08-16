@@ -14,7 +14,6 @@ use rocket::response::content;
 
 use agent::canvas::balancer::Balancer;
 use agent::canvas::painter::Painter;
-use agent::canvas::spiral::Spiral;
 
 mod controller;
 #[macro_use]
