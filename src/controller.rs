@@ -4,7 +4,7 @@ use agent::canvas::canvasagent::CanvasAgent;
 
 pub struct Controller<'a> {
     canvas: &'a mut Canvas,
-    agents: Vec<Box<CanvasAgent>>
+    agents: Vec<Box<CanvasAgent>>,
 }
 
 impl<'a> Controller<'a> {
@@ -23,7 +23,6 @@ impl<'a> Controller<'a> {
         for agent in &mut self.agents {
             agent.update(self.canvas);
             agent.execute(self.canvas);
-            println!("{:?}", &self.canvas.get_weight_grid());
         }
     }
 

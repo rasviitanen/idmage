@@ -19,23 +19,28 @@ impl CanvasAgent for Balancer {
         // Calculate center of mass
         let mut cx: f64 = 0.0;
         let mut cy: f64 = 0.0;
+        let mut cz: f64 = 0.0;
+
         let mut total_mass = 0.0;
 
         for graphic in canvas.graphics() {
-            let (graphic_cx, graphic_cy) = graphic.focal_point();
+            let (graphic_cx, graphic_cy, graphic_cz) = graphic.center;
             cx += graphic_cx*graphic.weight();
             cy += graphic_cy*graphic.weight();
+            cy += graphic_cz*graphic.weight();
+
             total_mass += graphic.weight();
         }
 
         if total_mass > 0.0 {
             cx /= total_mass;
             cy /= total_mass;
+            cz /= total_mass;
         }
 
         // If the state has changed, we request to update the center of mass
-        if (cx, cy) != canvas.center_of_mass() {
-            self.request = Some(request!(move |cv| cv.set_center_of_mass(cx, cy)));
+        if (cx, cy, cz) != canvas.center_of_mass() {
+            self.request = Some(request!(move |cv| cv.set_center_of_mass(cx, cy, cz)));
         }
 
     }

@@ -1,10 +1,11 @@
 use std::f64;
-
 use rand::prelude::*;
 
+use profile::profile::Profile;
 use graphic::Graphic;
 
-pub struct Profile {
+
+pub struct PicaasProfile {
     pub name: String,
     pub slogan: String,
     pub font_family: Vec<String>,
@@ -93,7 +94,7 @@ fn circle_network(color1: &str, color2: &str, color3: &str, v: &Vec<((f64, f64),
         circle1.add_attr(ATTR!("cx", p1.0));
         circle1.add_attr(ATTR!("cy", p1.1));
         circle1.add_attr(ATTR!("r", r1));
-        circle1.set_focal_point(p1.0, p1.0);
+        circle1.center = (p1.0, p1.1, 0.0);
         circle1.add_weight(r1);
 
 
@@ -141,10 +142,10 @@ fn circle_network(color1: &str, color2: &str, color3: &str, v: &Vec<((f64, f64),
     parent
 }
 
-impl Profile {
-    pub fn new() -> Profile {
-        let mut profile = Profile {
-            name: "Picaas".into(),
+impl PicaasProfile {
+    pub fn new() -> PicaasProfile {
+        let mut profile = PicaasProfile {
+            name: "Test".into(),
             slogan: "Generated graphics".into(),
             font_family: Vec::new(),
             text_colors: Vec::new(),
@@ -159,11 +160,23 @@ impl Profile {
         profile.primary_colors.push("yellow".into());
         profile.background_colors.push("#04011A".into());
         profile.font_family.push("Zilla Slab".into());
+        profile.font_family.push("monospace".into());
 
         profile
     }
+}
 
-    pub fn main_background(&self, x: f64, y:f64, width:f64, height: f64) -> Graphic {
+impl Profile for PicaasProfile {
+
+    fn font_family(&self) -> &Vec<String> { &self.font_family }
+
+    fn text_colors(&self) -> &Vec<String> { &self.text_colors }
+
+    fn primary_colors(&self) -> &Vec<String> { &self.primary_colors }
+
+    fn background_colors(&self) -> &Vec<String> { &self.background_colors }
+
+    fn main_background(&self, x: f64, y:f64, width:f64, height: f64) -> Graphic {
         let mut rng = thread_rng();
                     
         let mut position: (f64, f64);
@@ -186,7 +199,7 @@ impl Profile {
             &circle_list)
     }
 
-    pub fn logo(&self, x: f64, y: f64, size: f64) -> Graphic {
+    fn logo(&self, x: f64, y: f64, size: f64) -> Graphic {
 
         let mut text = Graphic::new("text");
 
@@ -199,7 +212,7 @@ impl Profile {
         text.add_attr(ATTR!("text-anchor", "middle"));
         text.add_attr(ATTR!("fill", &self.text_colors[0]));
 
-        text.add_text("AI powered design like never before.");
+        text.add_text(&self.slogan);
 
         text
     }
