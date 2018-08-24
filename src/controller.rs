@@ -1,7 +1,6 @@
 use canvas::Canvas;
 use builder;
 use agent::canvas::canvasagent::CanvasAgent;
-use profile::profile::Profile;
 
 pub struct Controller<'a> {
     canvas: &'a mut Canvas,

@@ -16,7 +16,7 @@ impl Painter {
 }
 
 impl CanvasAgent for Painter {
-    fn update(&mut self, canvas: &Canvas) {
+    fn update(&mut self, _canvas: &Canvas) {
         self.request = Some(request!(move |canvas| {
             let (width, height) = canvas.dimensions();
             let mut background = Graphic::new("rect");

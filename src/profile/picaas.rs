@@ -94,7 +94,7 @@ fn circle_network(color1: &str, color2: &str, color3: &str, v: &Vec<((f64, f64),
         circle1.add_attr(ATTR!("cx", p1.0));
         circle1.add_attr(ATTR!("cy", p1.1));
         circle1.add_attr(ATTR!("r", r1));
-        circle1.set_focal_point(p1.0, p1.0);
+        circle1.center = (p1.0, p1.1, 0.0);
         circle1.add_weight(r1);
 
 

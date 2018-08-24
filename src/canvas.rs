@@ -1,14 +1,13 @@
 use graphic::Graphic;
 use profile::profile::Profile;
-use profile::picaas::PicaasProfile;
+use profile::pathtrace::PathTraceProfile;
 
 pub struct Canvas {
     width: f64,
     height: f64,
-    aspect_ratio: f64,
-    center_of_mass: (f64, f64),
+    center_of_mass: (f64, f64, f64),
     graphics: Vec<Graphic>,
-    profile: Box<Profile>,
+    profile: PathTraceProfile,
 }
 
 impl Canvas {
@@ -16,10 +15,9 @@ impl Canvas {
         Canvas {
             width,
             height,
-            aspect_ratio: width/height,
-            center_of_mass: (width/2.0, height/2.0),
+            center_of_mass: (width/2.0, height/2.0, 0.0),
             graphics: Vec::new(),
-            profile: Box::new(PicaasProfile::new()),
+            profile: PathTraceProfile::new(),
         }
     }
 
@@ -39,15 +37,11 @@ impl Canvas {
         (self.width, self.height)
     }
 
-    pub fn aspect_ratio(&self) -> f64 {
-        self.aspect_ratio
+    pub fn set_center_of_mass(&mut self, cx: f64, cy: f64, cz: f64) {
+        self.center_of_mass = (cx, cy, cz);
     }
 
-    pub fn set_center_of_mass(&mut self, cx: f64, cy: f64) {
-        self.center_of_mass = (cx, cy);
-    }
-
-    pub fn center_of_mass(&self) -> (f64, f64) {
+    pub fn center_of_mass(&self) -> (f64, f64, f64) {
         self.center_of_mass
     }
 }

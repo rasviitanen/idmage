@@ -1,8 +1,9 @@
 #[derive(Debug)]
 pub struct Graphic {
     element: String,
+    math_expr: Option<String>,
     weight: f64,
-    center: (f64, f64),
+    pub center: (f64, f64, f64),
     attributes: Vec<String>,
     text: Vec<String>,
     children: Vec<Graphic>
@@ -12,8 +13,9 @@ impl Graphic {
     pub fn new(element: &str) -> Graphic {
         Graphic {
             element: element.to_string(),
+            math_expr: None,
             weight: 0.0,
-            center: (0.0, 0.0),
+            center: (0.0, 0.0, 0.0),
             text: Vec::new(),
             attributes: Vec::new(),
             children: Vec::new()
@@ -36,14 +38,6 @@ impl Graphic {
         self.text.push(text.to_string());
     }
 
-    pub fn set_focal_point(&mut self, x: f64, y: f64) {
-        self.center = (x, y);
-    }
-
-    pub fn focal_point(&self) -> (f64, f64) {
-        self.center
-    }
-
     pub fn add_attr(&mut self, attribute: String) {
         &self.attributes.push(attribute);
     }
@@ -58,10 +52,6 @@ impl Graphic {
 
     pub fn element(&self) -> &String {
         &self.element
-    }
-
-    pub fn attributes(&self) -> &Vec<String> {
-        &self.attributes
     }
 
     pub fn attr_as_str(&self) -> String {
