@@ -31,7 +31,7 @@ impl CanvasAgent for Balancer {
 
             total_mass += graphic.weight();
         }
-
+        
         if total_mass > 0.0 {
             cx /= total_mass;
             cy /= total_mass;
