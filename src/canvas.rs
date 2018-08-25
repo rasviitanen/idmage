@@ -1,14 +1,14 @@
 //! Holds all the current information about the artwork and current status.
 use graphic::Graphic;
 use profiles::profile::Profile;
-use profiles::pathtrace::PathTraceProfile;
+use profiles::picaas::PicaasProfile;
 
 pub struct Canvas {
     width: f64,
     height: f64,
     center_of_mass: (f64, f64, f64),
     graphics: Vec<Graphic>,
-    profile: PathTraceProfile,
+    profile: PicaasProfile,
 }
 
 impl Canvas {
@@ -18,7 +18,7 @@ impl Canvas {
             height,
             center_of_mass: (width/2.0, height/2.0, 0.0),
             graphics: Vec::new(),
-            profile: PathTraceProfile::new(),
+            profile: PicaasProfile::new(),
         }
     }
 

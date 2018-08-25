@@ -20,7 +20,7 @@ impl CanvasAgent for Balancer {
         let mut cx: f64 = 0.0;
         let mut cy: f64 = 0.0;
         let mut cz: f64 = 0.0;
-
+    
         let mut total_mass = 0.0;
 
         for graphic in canvas.graphics() {

@@ -1,5 +1,6 @@
 //! Creates the SVG from a canvas
 use std::fmt::Write;
+use std::fs;
 
 use canvas::Canvas;
 use graphic::Graphic;
@@ -18,18 +19,19 @@ pub fn build(canvas: &Canvas) -> String {
             height={height}
             viewBox={format!("0 0 {} {}", width, height)}
             xml:space="preserve") [
-                defs [
-                    linearGradient (id="MyGrad" x1="0%" y1="0%" x2="100%" y2="0%")[
-                        stop (offset="20%" stop-color="white")
-                        stop (offset="80%" stop-color="blue")
-                    ]
-                ]
                 @ for graphic in canvas.graphics() {
                     construct(&mut out, graphic);
                 };
             ]
     );
+    
+    save_to_file(&out, "static/test.svg");
+
     out
+}
+
+fn save_to_file(contents: &String, path: &str) {
+    fs::write(path, contents);
 }
 
 fn construct(out: &mut String, graphic: &Graphic) {

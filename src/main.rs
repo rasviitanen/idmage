@@ -38,7 +38,7 @@ fn canvas() -> io::Result<NamedFile> {
 
 #[get("/generate")]
 fn generate() -> content::Xml<String> {
-    let mut canvas = canvas::Canvas::new(1280.0, 720.0);
+    let mut canvas = canvas::Canvas::new(1280.0, 420.0);
     let mut controller = controller::Controller::new(&mut canvas);
     controller.register_agent(Box::new(Painter::new()));
     controller.register_agent(Box::new(Balancer::new()));

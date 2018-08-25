@@ -146,7 +146,7 @@ impl PicaasProfile {
     pub fn new() -> PicaasProfile {
         let mut profile = PicaasProfile {
             name: "Test".into(),
-            slogan: "Generated graphics".into(),
+            slogan: "Preview".into(),
             font_family: Vec::new(),
             text_colors: Vec::new(),
             primary_colors: Vec::new(),
@@ -155,10 +155,10 @@ impl PicaasProfile {
 
         profile.text_colors.push("white".into());
         profile.text_colors.push("yellow".into());        
-        profile.primary_colors.push("#0F0461".into());
-        profile.primary_colors.push("#1E4FF2".into());
-        profile.primary_colors.push("yellow".into());
-        profile.background_colors.push("#04011A".into());
+        profile.primary_colors.push("#0F2027".into());
+        profile.primary_colors.push("#203A43".into());
+        profile.primary_colors.push("#2C5364".into());
+        profile.background_colors.push("#0F2027".into());
         profile.font_family.push("Zilla Slab".into());
         profile.font_family.push("monospace".into());
 
@@ -187,7 +187,7 @@ impl Profile for PicaasProfile {
         // Create 3 to 7 random circles with size 1 to 6
         for _ in 0..rng.gen_range(3, 7) {
             position = (rng.gen_range(x, x + width), rng.gen_range(y, y + height));
-            radius = rng.gen_range(1.0, 6.0);
+            radius = rng.gen_range(0.5, 7.0);
             circle_list.push((position, radius));
         }
 

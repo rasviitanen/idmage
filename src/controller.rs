@@ -1,4 +1,5 @@
-//! The controller allows agents to either update their current command, or execute their precious.
+//! The controller allows agents to either update their current command, 
+//! or execute their previous.
 use canvas::Canvas;
 use builder;
 use agent::canvas::canvasagent::CanvasAgent;
