@@ -2,6 +2,10 @@
 [![Cargo](https://api.travis-ci.com/rasviitanen/idmage.svg?branch=master)](https://travis-ci.com/rasviitanen/idmage) 
 [![Docs](https://img.shields.io/badge/docs-v0.0.1-blue.svg)](https://rasviitanen.github.io/idmage/idmage/index.html)
 
+The latest generated image:
+![Figure 1. Ray tracing, the basics](static/test.svg)
+
+
 #### Todo
 - [ ] Allow for perspective and add camera
 - [ ] Add lgiht sources
