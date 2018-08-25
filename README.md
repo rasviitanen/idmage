@@ -1,6 +1,6 @@
 # Automated SVG generaton with idmage
 [![Cargo](https://api.travis-ci.com/rasviitanen/idmage.svg?branch=master)](https://travis-ci.com/rasviitanen/idmage) 
-[![](https://img.shields.io/badge/docs-v0.0.1-blue.svg)](https://rasviitanen.github.io/idmage/idmage/index.html)
+[![Docs](https://img.shields.io/badge/docs-v0.0.1-blue.svg)](https://rasviitanen.github.io/idmage/idmage/index.html)
 
 Idmage is a tool for creating graphics by sending a HTTP request. The tool uses a visual identity as well as a smart expert-system do generate its designs. This way, images (such that follows some visual identities) can easily be created with a different look every time, while still following the visual guidelines.
 
@@ -10,7 +10,5 @@ The API enables:
 * Generate other documents and graphics with a persistent look (such as banners, posters & invoices).
 * Animate SVG-files.
 * Visualisation of large data-sets in vector format.
-* Automatic layout of any quadratic entity, such as a poster.
-* Store repetitive SVGs as code instead of SVG-files. (Saves space, and enables easy manipulation)
-* Serve graphics without storage.
+* Serve graphics over http.
 * ...
