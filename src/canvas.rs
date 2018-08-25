@@ -1,6 +1,7 @@
+//! Holds all the current information about the artwork and current status.
 use graphic::Graphic;
-use profile::profile::Profile;
-use profile::pathtrace::PathTraceProfile;
+use profiles::profile::Profile;
+use profiles::pathtrace::PathTraceProfile;
 
 pub struct Canvas {
     width: f64,

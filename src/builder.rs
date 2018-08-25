@@ -1,3 +1,4 @@
+//! Creates the SVG from a canvas
 use std::fmt::Write;
 
 use canvas::Canvas;

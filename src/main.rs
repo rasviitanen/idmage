@@ -1,3 +1,4 @@
+//! This is the entry point, where an HTML request is parsed and routed.
 #![feature(extern_prelude)]
 #![feature(plugin)]
 #![plugin(rocket_codegen)]
@@ -23,13 +24,13 @@ mod agent;
 mod builder;
 mod canvas;
 mod graphic;
-mod profile;
+mod profiles;
 
 #[get("/")]
 fn index() -> &'static str {
     "Hello, world!"
 }
-
+/// Individual profiles, for setting the style
 #[get("/canvas")]
 fn canvas() -> io::Result<NamedFile> {
     NamedFile::open("static/index.html")

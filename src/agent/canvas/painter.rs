@@ -8,7 +8,9 @@ pub struct Painter {
 }
 
 impl Painter {
+    /// Test
     pub fn new() -> Painter {
+        //! test1
         Painter {
             request: None,
         }

@@ -1,3 +1,4 @@
+//! A single or grouped element that caa be placed on a canvas.
 #[derive(Debug)]
 pub struct Graphic {
     element: String,
@@ -39,7 +40,7 @@ impl Graphic {
     }
 
     pub fn add_attr(&mut self, attribute: String) {
-        &self.attributes.push(attribute);
+        self.attributes.push(attribute);
     }
     
     pub fn add_child(&mut self, graphic: Graphic) {

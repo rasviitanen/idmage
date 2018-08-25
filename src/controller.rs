@@ -1,3 +1,4 @@
+//! The controller allows agents to either update their current command, or execute their precious.
 use canvas::Canvas;
 use builder;
 use agent::canvas::canvasagent::CanvasAgent;
@@ -27,7 +28,7 @@ impl<'a> Controller<'a> {
     }
 
     pub fn build(&self) -> String {
-        let out = builder::build(&self.canvas);
-        out
+        builder::build(&self.canvas)
+        
     }
 }
