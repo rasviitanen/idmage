@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["plugin_registrar","Compiler hook for Rust to register plugins."]]});

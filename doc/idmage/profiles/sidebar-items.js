@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["pathtrace","A profile for testing the path trace algorithm"],["picaas",""],["profile",""]]});
