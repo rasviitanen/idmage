@@ -37,7 +37,7 @@ impl CanvasAgent for Painter {
             text.add_attr(ATTR!("font-family", &canvas.profile().font_family()[0]));
 
             group.add_child(canvas.profile().main_background(0.0, 0.0, width, height));
-            group.add_child(canvas.profile().logo(width/2.0, height/2.0, 84.0));
+            //group.add_child(canvas.profile().logo(width/2.0, height/2.0, 84.0));
             canvas.add_graphic(background);
             canvas.add_graphic(group);
             canvas.add_graphic(text);

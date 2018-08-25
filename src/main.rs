@@ -7,6 +7,7 @@
 extern crate svgmacro;
 extern crate rocket;
 extern crate rand;
+extern crate rulinalg;
 
 use std::io;
 
@@ -25,6 +26,7 @@ mod builder;
 mod canvas;
 mod graphic;
 mod profiles;
+mod math;
 
 #[get("/")]
 fn index() -> &'static str {
