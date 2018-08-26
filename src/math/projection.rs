@@ -51,30 +51,7 @@ pub fn project_3d_point_on_2d_surface(camera: &Camera, point: (f64, f64, f64)) -
 
 unsafe {
     let z_ratio = camera.display_surface.2/camera_coord.get_unchecked([0, 2]);
-
-    println!("{:?}", camera_coord);
-    println!("Z:RATIO  {:?}", z_ratio);
-    println!("camera display surface:::  {:?}", camera.display_surface);
-
-    println!("zratio * cameracoord:::  {:?}", z_ratio*camera_coord.get_unchecked([0, 0]));
-
     // new x,y on the plane
     (z_ratio*camera_coord.get_unchecked([0, 0]) + camera.display_surface.0,
         z_ratio*camera_coord.get_unchecked([0, 1]) + camera.display_surface.1)
-
-}
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn project() {
-        let camera = Camera::new((1.0, 1.0, 1.0), (1.0, 1.0, 1.0));
-        let projected_point = 
-            project_3d_point_on_2d_surface(&camera, (10.0, 10.0, 100.0));
-        println!("{:?}", projected_point);
-        assert_eq!(0, 1);
-    }
-}
+}}
