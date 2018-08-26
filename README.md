@@ -7,8 +7,7 @@ The latest generated image:
 
 
 #### Todo
-- [ ] Allow for perspective and add camera
-- [ ] Add lgiht sources
+- [ ] Add light sources
 - [ ] Intersection trait
 - [ ] Determine values through path tracing
 - [ ] Implement weight system
@@ -21,12 +20,13 @@ The latest generated image:
 - [X] SVG templating
 - [X] Serve the SVG over http
 - [X] Generate content from a profile
+- [X] Allow for perspective and add camera
 
 ## About 
 Idmage is a tool for creating graphics by sending a HTTP request. The tool uses a visual identity as well as a smart expert-system do generate its designs. This way, images (such that follows some visual identities) can easily be created with a different look every time, while still following the visual guidelines.
 
 The API enables:
-* Createon of graphics that is difficult to design in e.g. Adobe Illustrator, such as fractals.
+* Creation of graphics that is difficult to design in e.g. Adobe Illustrator, such as fractals.
 * Generate unique avatars (like those found on Github or Slack).
 * Generate other documents and graphics with a persistent look (such as banners, posters & invoices).
 * Animate SVG-files.
