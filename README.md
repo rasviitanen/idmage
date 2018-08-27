@@ -1,4 +1,4 @@
-# Automated SVG generaton with idmage
+# Generative graphics and art with idmage
 [![Cargo](https://api.travis-ci.com/rasviitanen/idmage.svg?branch=master)](https://travis-ci.com/rasviitanen/idmage) 
 [![Docs](https://img.shields.io/badge/docs-v0.0.1-blue.svg)](https://rasviitanen.github.io/idmage/idmage/index.html)
 
@@ -7,14 +7,17 @@ The latest generated image:
 
 
 #### Todo
+- [ ] NURBS representation
+- [ ] Affine transforms
+- [ ] Size normalization
 - [ ] Add light sources
 - [ ] Intersection trait
 - [ ] Determine values through path tracing
-- [ ] Implement weight system
-- [ ] Implement polarity system
-- [ ] Implement composition expert
-- [ ] Implement text expert
-- [ ] Implement color expert
+- [ ] Weight system
+- [ ] Polarity system
+- [ ] Composition expert
+- [ ] Text expert
+- [ ] Color expert
 #### Done
 - [X] Expert system architecture
 - [X] SVG templating
