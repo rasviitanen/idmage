@@ -8,6 +8,7 @@ The latest generated image:
 
 #### Todo
 - [ ] NURBS representation
+- [ ] Gradient mesh
 - [ ] Affine transforms
 - [ ] Size normalization
 - [ ] Add light sources
