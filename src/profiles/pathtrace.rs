@@ -5,6 +5,9 @@ use rand::prelude::*;
 use profiles::profile::Profile;
 use graphic::Graphic;
 use math::projection;
+use graphics::nurbs;
+use graphics::nurbs::Anchor;
+
 
 pub struct PathTraceProfile {
     pub name: String,
@@ -49,13 +52,11 @@ impl Profile for PathTraceProfile {
 
     fn background_colors(&self) -> &Vec<String> { &self.background_colors }
 
-    /// Creates a few random circles of medium size
     fn main_background(&self, x: f64, y:f64, width:f64, height: f64) -> Graphic {
-        let mut position: (f64, f64, f64);
 
-        let position = (width/2.0 - 1200.0, height/2.0 + 2500.0, 0.0);
-        let orientation = (1.2, 0.2, 0.3);
-        let projection_plane = (width/2.0, height/2.0, 300.0);
+        let position = (width/2.0, height/2.0, 0.0);
+        let orientation = (0.0011, 0.0007, 0.0);
+        let projection_plane = (width/2.0, height/2.0, 1.0);
         let camera = projection::Camera::new(
             position, orientation, projection_plane);
 
@@ -66,13 +67,13 @@ impl Profile for PathTraceProfile {
         let mut start_pos;
         let mut end_pos;
         
-        for i in -17..=17 {
+        for i in -12..=12 {
             // Create lines
 
             start_pos = projection::project_3d_point_on_2d_surface(&camera, 
-                (width/2.0 + (i as f64)*100.0, 0.0 - 1500.0, 500.0));
+                (width/2.0 + (i as f64)*100.0, -1000.0, 5.0));
             end_pos = projection::project_3d_point_on_2d_surface(&camera, 
-                (width/2.0 + (i as f64)*100.0, height + 1500.0, 500.0));
+                (width/2.0 + (i as f64)*100.0, 1000.0, 5.0));
 
             line = Graphic::new("line");
             line.add_attr(ATTR!("x1", start_pos.0));
@@ -86,9 +87,9 @@ impl Profile for PathTraceProfile {
             lines.add_child(line);
 
             start_pos = projection::project_3d_point_on_2d_surface(&camera, 
-                (width/2.0 - (height/2.0 + 1500.0), height/2.0 + (i as f64)*100.0, 500.0));
+                (width/2.0 - 1000.0, height/2.0 + (i as f64)*100.0, 5.0));
             end_pos = projection::project_3d_point_on_2d_surface(&camera, 
-                (width/2.0 + (height/2.0 + 1500.0), height/2.0 + (i as f64)*100.0, 500.0));
+                (width/2.0 + 1000.0, height/2.0 + (i as f64)*100.0, 5.0));
             // Create lines
             line2 = Graphic::new("line");
             line2.add_attr(ATTR!("x1", start_pos.0));
@@ -106,21 +107,22 @@ impl Profile for PathTraceProfile {
         lines
     }
 
-    /// A basic string containg "Path Tracing Text" in Zilla Slab
     fn logo(&self, x: f64, y: f64, size: f64) -> Graphic {
-        let mut text = Graphic::new("text");
 
-        text.add_attr(ATTR!("font-size", size));
-        text.add_attr(ATTR!("font-family", &self.font_family[0]));
-        text.add_attr(ATTR!("font-weight", "Bold"));
+        let position = (1280.0/2.0, 420.0/2.0, 0.0);
+        let orientation = (0.0013, 0.0007, 0.0);
+        let projection_plane = (1280.0/2.0, 420.0/2.0, 1.0);
+        let camera = projection::Camera::new(
+            position, orientation, projection_plane);
+            
+        let bezier = nurbs::nurbs_surface(&camera, &vec!(
+                bezier!('M', (200.0, 200.0, 4.0)),
+                bezier!('C', (200.0, 250.0, 4.0)),
+                bezier!('C', (400.0, 350.0, 2.0), (300.0, 400.0, 2.0)),
+                bezier!('S', (800.0, 500.0, 2.0), (800.0, 200.0, 2.0)),
+                bezier!('S', (200.0, 0.0, 4.0), (200.0, 200.0, 4.0)),
+            ));
 
-        text.add_attr(ATTR!("x", x));
-        text.add_attr(ATTR!("y", y));
-        text.add_attr(ATTR!("text-anchor", "middle"));
-        text.add_attr(ATTR!("fill", &self.text_colors[0]));
-
-        text.add_text(&self.slogan);
-
-        text
+        bezier
     }
 }

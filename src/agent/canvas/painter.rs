@@ -38,6 +38,7 @@ impl CanvasAgent for Painter {
 
             group.add_child(canvas.profile().main_background(0.0, 0.0, width, height));
             group.add_child(canvas.profile().logo(width/2.0, 6.0*height/7.0, 84.0));
+
             canvas.add_graphic(background);
             canvas.add_graphic(group);
             canvas.add_graphic(text);
