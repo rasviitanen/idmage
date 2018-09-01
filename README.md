@@ -7,7 +7,7 @@ The latest generated image:
 
 
 #### Todo
-- [ ] NURBS representation
+- [ ] NURBS representation (Will use triangle mesh instead)
 - [ ] Gradient mesh
 - [ ] Affine transforms
 - [ ] Size normalization
