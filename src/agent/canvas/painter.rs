@@ -19,30 +19,14 @@ impl Painter {
 
 impl CanvasAgent for Painter {
     fn update(&mut self, _canvas: &Canvas) {
-        self.request = Some(request!(move |canvas| {
-            let (width, height) = canvas.dimensions();
-            let mut background = Graphic::new("rect");
-            let mut group = Graphic::new("g");
-
-            background.add_attr(ATTR!("x", 0));
-            background.add_attr(ATTR!("y", 0));
-            background.add_attr(ATTR!("width", width));
-            background.add_attr(ATTR!("height", height));
-
-            background.add_attr(ATTR!("fill", &canvas.profile().background_colors()[0]));
-
-            let mut text = Graphic::new("text");
-
-            text.add_attr(ATTR!("font-size", 64));
-            text.add_attr(ATTR!("font-family", &canvas.profile().font_family()[0]));
-
-            group.add_child(canvas.profile().main_background(0.0, 0.0, width, height));
-            group.add_child(canvas.profile().logo(width/2.0, 6.0*height/7.0, 84.0));
-
-            canvas.add_graphic(background);
-            canvas.add_graphic(group);
-            canvas.add_graphic(text);
-        }));
+        self.request = Some(request!(
+            100,
+            move |canvas| {
+                let (width, height) = canvas.dimensions();
+                let background = canvas.profile().main_background(0.0, 0.0, width, height);
+                canvas.add_graphic(background);
+            }
+        ));
     }
 
     fn execute(&mut self, canvas: &mut Canvas) {

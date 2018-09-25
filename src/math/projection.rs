@@ -22,7 +22,7 @@ impl Camera {
     }
 }
 
-pub fn project_3d_point_on_2d_surface(camera: &Camera, point: (f64, f64, f64)) -> (f64, f64) {
+pub fn project_3d_on_2d(camera: &Camera, point: (f64, f64, f64)) -> (f64, f64) {
     let tait_bryan_x = Matrix::new(3, 3, vec![
         1.0,    0.0,                            0.0,
         0.0,    camera.orientation.0.cos(),    camera.orientation.0.sin(),
@@ -49,9 +49,11 @@ pub fn project_3d_point_on_2d_surface(camera: &Camera, point: (f64, f64, f64)) -
 
     let camera_coord = &tait_bryan_x * &tait_bryan_y * &tait_bryan_z * &to_camera_vector;
 
-unsafe {
-    let z_ratio = camera.display_surface.2/camera_coord.get_unchecked([0, 2]);
-    // new x,y on the plane
-    (z_ratio*camera_coord.get_unchecked([0, 0]) + camera.display_surface.0,
-        z_ratio*camera_coord.get_unchecked([0, 1]) + camera.display_surface.1)
-}}
+    unsafe {
+        let z_ratio = camera.display_surface.2/camera_coord.get_unchecked([0, 2]);
+        // new x,y on the plane
+        let projected_x = z_ratio*camera_coord.get_unchecked([0, 0]) + camera.display_surface.0;
+        let projected_y = z_ratio*camera_coord.get_unchecked([0, 1]) + camera.display_surface.1;
+        (projected_x, projected_y)
+    }
+}

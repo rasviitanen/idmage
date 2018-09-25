@@ -20,10 +20,10 @@ use agent::canvas::painter::Painter;
 #[macro_use]
 mod svgpower;
 #[macro_use]
-mod graphics;
 mod controller;
 mod agent;
 mod builder;
+#[allow(dead_code)]
 mod canvas;
 mod graphic;
 mod profiles;

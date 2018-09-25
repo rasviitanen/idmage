@@ -1,17 +1,23 @@
 use canvas::Canvas;
 
+type ImpactMetricValue = u8;
+
 macro_rules! request {
-    ($e:expr) => {{
-        Request { code: Box::new($e) }
+    ($impact:expr, $modification:expr) => {{
+        Request { 
+            impact: $impact,
+            modification: Box::new($modification),
+        }
     }};
 }
 
 pub struct Request {
-    pub code: Box<Fn(&mut Canvas)>,
+    pub impact: ImpactMetricValue, // How big is my impact on the canvas, scale 0-100?
+    pub modification: Box<Fn(&mut Canvas)>,
 }
 
 impl Request {
     pub fn execute(&self, canvas: &mut Canvas) {
-        (self.code)(canvas);
+        (self.modification)(canvas); // Execute the request on the canvas
     }
 }
