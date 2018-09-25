@@ -17,12 +17,13 @@ use rocket::response::content;
 use agent::canvas::balancer::Balancer;
 use agent::canvas::painter::Painter;
 
-mod controller;
 #[macro_use]
 mod svgpower;
-
+#[macro_use]
+mod controller;
 mod agent;
 mod builder;
+#[allow(dead_code)]
 mod canvas;
 mod graphic;
 mod profiles;

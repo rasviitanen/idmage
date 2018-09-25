@@ -75,7 +75,6 @@ fn circle_network(color1: &str, color2: &str, color3: &str, v: &[((f64, f64), f6
     let mut angle: (f64, f64);
 
     let mut polygon: Graphic;
-    let _aass = "1000000000";
 
     c1 = v_iter.next().unwrap();
     while v.len() - 1 > i {
@@ -191,12 +190,26 @@ impl Profile for PicaasProfile {
             circle_list.push((position, radius));
         }
 
-        // Connect the circles smoothly
-        circle_network(
-            &self.primary_colors[0], 
-            &self.primary_colors[1], 
-            &self.primary_colors[2], 
-            &circle_list)
+        let mut group = Graphic::new("g");
+
+        let mut background = Graphic::new("rect");
+        background.add_attr(ATTR!("x", 0));
+        background.add_attr(ATTR!("y", 0));
+        background.add_attr(ATTR!("width", width));
+        background.add_attr(ATTR!("height", height));
+        
+        group.add_child(background);
+
+        group.add_child(
+            circle_network(
+                &self.primary_colors[0], 
+                &self.primary_colors[1], 
+                &self.primary_colors[2], 
+                &circle_list
+            )
+        );
+        
+        group        
     }
 
     fn logo(&self, x: f64, y: f64, size: f64) -> Graphic {

@@ -40,7 +40,12 @@ impl CanvasAgent for Balancer {
 
         // If the state has changed, we request to update the center of mass
         if (cx, cy, cz) != canvas.center_of_mass() {
-            self.request = Some(request!(move |cv| cv.set_center_of_mass(cx, cy, cz)));
+            self.request = Some(request!(
+                100,
+                move |canvas| {
+                    canvas.set_center_of_mass(cx, cy, cz)
+                }
+            ));
         }
 
     }

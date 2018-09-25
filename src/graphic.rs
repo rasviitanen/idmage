@@ -6,7 +6,7 @@ pub struct Graphic {
     weight: f64,
     pub center: (f64, f64, f64),
     attributes: Vec<String>,
-    text: Vec<String>,
+    text: Option<String>,
     children: Vec<Graphic>
 }
 
@@ -17,7 +17,7 @@ impl Graphic {
             math_expr: None,
             weight: 0.0,
             center: (0.0, 0.0, 0.0),
-            text: Vec::new(),
+            text: None,
             attributes: Vec::new(),
             children: Vec::new()
         }
@@ -31,12 +31,12 @@ impl Graphic {
         self.weight
     }
 
-    pub fn text(&self) -> &Vec<String> {
+    pub fn text(&self) -> &Option<String> {
         &self.text
     }
 
     pub fn add_text(&mut self, text: &str) {
-        self.text.push(text.to_string());
+        self.text = Some(text.to_string());
     }
 
     pub fn add_attr(&mut self, attribute: String) {

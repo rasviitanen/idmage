@@ -30,16 +30,16 @@ pub fn build(canvas: &Canvas) -> String {
     out
 }
 
-fn save_to_file(contents: &String, path: &str) {
-    fs::write(path, contents);
+fn save_to_file(contents: &str, path: &str) {
+    if fs::write(path, contents).is_err() {
+        println!("{:?}", "Error wrinting to file")
+    };
 }
 
 fn construct(out: &mut String, graphic: &Graphic) {
     SVG!(out, 
         {graphic.element()}({graphic.attr_as_str()}) [
-            @ for text in graphic.text() {
-                SVG!(out, text);
-            };
+            @ if let Some(text) = graphic.text() { SVG!(out, text) };
             @ for child in graphic.children() {
                 construct(out, child)
             };
