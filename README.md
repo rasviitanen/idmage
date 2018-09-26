@@ -8,9 +8,10 @@ The latest generated image can be seen below:
 ### Status
 -----
 #### Current
+- [ ] Represent graphics with low resolution dotting-system 
 - [ ] Canvas metrics
-- [ ] Evaluation agents
 #### Todo
+- [ ] Evaluation agents
 - [ ] Size normalization
 - [ ] Curve fitting
 - [ ] Weight system
