@@ -3,6 +3,20 @@ use graphic::Graphic;
 use profiles::profile::Profile;
 use profiles::picaas::PicaasProfile;
 use math::projection::Camera;
+use std::collections::HashMap;
+use metrics::Metric;
+
+macro_rules! map(
+    { $($key:expr => $value:expr),+ } => {
+        {
+            let mut m = ::std::collections::HashMap::new();
+            $(
+                m.insert($key, $value);
+            )+
+            m
+        }
+     };
+);
 
 pub struct Canvas {
     width: f64,
@@ -11,6 +25,7 @@ pub struct Canvas {
     center_of_mass: (f64, f64, f64),
     graphics: Vec<Graphic>,
     profile: PicaasProfile,
+    metrics: HashMap<Metric, u8>,
 }
 
 impl Canvas {
@@ -22,6 +37,10 @@ impl Canvas {
             center_of_mass: (width/2.0, height/2.0, 0.0),
             graphics: Vec::new(),
             profile: PicaasProfile::new(),
+            metrics: map!(
+                Metric::BALANCE => 0,
+                Metric::FLOW => 0
+            )
         }
     }
 

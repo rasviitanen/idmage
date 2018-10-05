@@ -28,6 +28,7 @@ mod canvas;
 mod graphic;
 mod profiles;
 mod math;
+mod metrics;
 
 #[get("/")]
 fn index() -> &'static str {
