@@ -44,6 +44,14 @@ impl Canvas {
         }
     }
 
+    pub fn get_metrics(&self) -> &HashMap<Metric, u8> {
+        &self.metrics
+    }
+
+    pub fn get_metrics_mut(&mut self) -> &mut HashMap<Metric, u8> {
+        &mut self.metrics
+    }
+
     pub fn set_camera(&mut self, camera: Camera) {
         self.camera = Some(camera);
     }

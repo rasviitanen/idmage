@@ -1,6 +1,7 @@
 use agent::canvas::canvasagent::CanvasAgent;
 use canvas::Canvas;
 use agent::canvas::request::Request;
+use agent::canvas::request::ImpactMetricValue;
 use graphic::Graphic;
 
 pub struct Painter {
@@ -18,9 +19,11 @@ impl Painter {
 }
 
 impl CanvasAgent for Painter {
-    fn update(&mut self, _canvas: &Canvas) {
+    fn update(&mut self, canvas: &Canvas) {
+        let mut impact: ImpactMetricValue;
+        impact = 100;
         self.request = Some(request!(
-            100,
+            impact,
             move |canvas| {
                 let (width, height) = canvas.dimensions();
                 let background = canvas.profile().main_background(0.0, 0.0, width, height);

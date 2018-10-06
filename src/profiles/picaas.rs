@@ -154,9 +154,9 @@ impl PicaasProfile {
 
         profile.text_colors.push("white".into());
         profile.text_colors.push("yellow".into());        
-        profile.primary_colors.push("#0F2027".into());
-        profile.primary_colors.push("#203A43".into());
-        profile.primary_colors.push("#2C5364".into());
+        profile.primary_colors.push("orange".into());
+        profile.primary_colors.push("yellow".into());
+        profile.primary_colors.push("orange".into());
         profile.background_colors.push("#0F2027".into());
         profile.font_family.push("Zilla Slab".into());
         profile.font_family.push("monospace".into());
