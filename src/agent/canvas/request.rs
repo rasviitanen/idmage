@@ -1,6 +1,6 @@
 use canvas::Canvas;
 
-type ImpactMetricValue = u8;
+pub type ImpactMetricValue = u8;
 
 macro_rules! request {
     ($impact:expr, $modification:expr) => {{
