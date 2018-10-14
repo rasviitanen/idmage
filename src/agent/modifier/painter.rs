@@ -1,17 +1,15 @@
-use agent::canvas::canvasagent::CanvasAgent;
+use agent::canvasagent::CanvasAgent;
 use canvas::Canvas;
-use agent::canvas::request::Request;
-use agent::canvas::request::ImpactMetricValue;
-use graphic::Graphic;
+use agent::request::Request;
+use agent::request::ImpactMetricValue;
+use metrics::Metric;
 
 pub struct Painter {
     request: Option<Request>,
 }
 
 impl Painter {
-    /// Test
     pub fn new() -> Painter {
-        //! test1
         Painter {
             request: None,
         }
@@ -19,20 +17,21 @@ impl Painter {
 }
 
 impl CanvasAgent for Painter {
-    fn update(&mut self, canvas: &Canvas) {
-        let mut impact: ImpactMetricValue;
-        impact = 100;
+    fn update(&mut self, _: &Canvas) {
+        let impact: ImpactMetricValue = 100;
         self.request = Some(request!(
             impact,
-            move |canvas| {
+            move |canvas: &mut Canvas| {
                 let (width, height) = canvas.dimensions();
-                let background = canvas.profile().main_background(0.0, 0.0, width, height);
+                let background = canvas.profile()
+                    .main_background(0.0, 0.0, width, height);
+                canvas.get_metrics_mut().insert(Metric::BACKGROUND, 100);
                 canvas.add_graphic(background);
             }
         ));
     }
 
-    fn execute(&mut self, canvas: &mut Canvas) {
+    fn execute(&self, canvas: &mut Canvas) {
         match &self.request {
             Some(req) => {
                 println!("{:?}", "Executing request for Painter");
@@ -42,6 +41,5 @@ impl CanvasAgent for Painter {
                 println!("{:?}", "No request to be executed by Painter");
             }
         }
-        self.request = None;
     }
 }

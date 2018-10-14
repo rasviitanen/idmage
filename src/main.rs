@@ -14,8 +14,8 @@ use std::io;
 use rocket::response::NamedFile;
 use rocket::response::content;
 
-use agent::canvas::balancer::Balancer;
-use agent::canvas::painter::Painter;
+use agent::observer::balancer::Balancer;
+use agent::modifier::painter::Painter;
 
 #[macro_use]
 mod svgpower;
@@ -27,6 +27,7 @@ mod builder;
 mod canvas;
 mod graphic;
 mod profiles;
+#[macro_use]
 mod math;
 mod metrics;
 

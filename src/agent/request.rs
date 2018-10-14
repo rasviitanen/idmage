@@ -1,5 +1,4 @@
 use canvas::Canvas;
-
 pub type ImpactMetricValue = u8;
 
 macro_rules! request {
@@ -18,6 +17,6 @@ pub struct Request {
 
 impl Request {
     pub fn execute(&self, canvas: &mut Canvas) {
-        (self.modification)(canvas); // Execute the request on the canvas
+        (self.modification)(canvas);
     }
 }
