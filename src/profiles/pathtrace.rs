@@ -1,6 +1,5 @@
 //! A profile for testing the path trace algorithm
 use std::f64;
-use rand::prelude::*;
 
 use profiles::profile::Profile;
 use graphic::Graphic;
@@ -19,7 +18,7 @@ impl PathTraceProfile {
     pub fn new() -> PathTraceProfile {
         let mut profile = PathTraceProfile {
             name: "Test".into(),
-            slogan: "Path Tracing Test".into(),
+            slogan: "Perspective Projection Test".into(),
             font_family: Vec::new(),
             text_colors: Vec::new(),
             primary_colors: Vec::new(),
@@ -31,7 +30,7 @@ impl PathTraceProfile {
         profile.primary_colors.push("#0F0461".into());
         profile.primary_colors.push("#1E4FF2".into());
         profile.primary_colors.push("yellow".into());
-        profile.background_colors.push("#666666".into());
+        profile.background_colors.push("#429182".into());
         profile.font_family.push("Zilla Slab".into());
         profile.font_family.push("monospace".into());
 
@@ -49,29 +48,24 @@ impl Profile for PathTraceProfile {
 
     fn background_colors(&self) -> &Vec<String> { &self.background_colors }
 
-    /// Creates a few random circles of medium size
-    fn main_background(&self, x: f64, y:f64, width:f64, height: f64) -> Graphic {
-        let mut rng = thread_rng();
-                    
-        let mut position: (f64, f64);
+    fn main_background(&self, _x: f64, _y:f64, _width:f64, _height: f64) -> Graphic {
+        let mut line: Graphic;
 
-        let mut circles = Graphic::new("g");
-        let mut circle: Graphic;
+        let start_pos = (100.0, 100.0);
+        let end_pos = (400.0, 400.0);
+        
+        line = Graphic::new("line");
+        line.add_attr(ATTR!("x1", start_pos.0));
+        line.add_attr(ATTR!("y1", start_pos.1));
 
-        // Create circles
-        for _ in 0..rng.gen_range(2, 4) {
-            position = (rng.gen_range(x, x + width), rng.gen_range(y, y + height));
-            circle = Graphic::new("circle");
-            circle.add_attr(ATTR!("r", 200.0));
-            circle.add_attr(ATTR!("cx", position.0));
-            circle.add_attr(ATTR!("cy", position.1));
-            circles.add_child(circle);
-        }
+        line.add_attr(ATTR!("x2", end_pos.0));
+        line.add_attr(ATTR!("y2", end_pos.1));
 
-        circles
+        line.add_attr(ATTR!("style", "stroke:rgba(255,255,255,0.3);stroke-width:3"));
+
+        line
     }
 
-    /// A basic string containg "Path Tracing Text" in Zilla Slab
     fn logo(&self, x: f64, y: f64, size: f64) -> Graphic {
         let mut text = Graphic::new("text");
 

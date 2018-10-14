@@ -1,6 +1,8 @@
 use std::f64;
 use rand::prelude::*;
 
+use math::helpers;
+use math::helpers::{WeightedCoordinate, Coordinate};
 use profiles::profile::Profile;
 use graphic::Graphic;
 
@@ -14,7 +16,11 @@ pub struct PicaasProfile {
     pub background_colors: Vec<String>
 }
 
-pub fn radial_gradient(id: &str, color1: &str, color2: &str, color3: &str, pos: (f64, f64), r: f64) -> Graphic {
+pub fn radial_gradient(
+    id: &str, 
+    color1: &str, color2: &str, color3: &str, 
+    pos: (f64, f64), r: f64
+) -> Graphic {
     let mut gradient = Graphic::new("radialGradient");
     let mut stop1 = Graphic::new("stop");
     let mut stop2 = Graphic::new("stop");
@@ -42,7 +48,9 @@ pub fn radial_gradient(id: &str, color1: &str, color2: &str, color3: &str, pos: 
     gradient
 }
 
-fn tangent_line(p1: (f64, f64), p2: (f64, f64), r1: f64, r2: f64) -> (f64, f64) {
+fn tangent_line(p1: (f64, f64), p2: (f64, f64), 
+    r1: f64, r2: f64) 
+-> (f64, f64) {
     let diff: (f64, f64) = (p2.0 - p1.0, p2.1 - p1.1);
     let distance: f64 = (diff.0.powi(2) + diff.1.powi(2)).sqrt();
     let dx = f64::cos(f64::consts::PI/2.0 
@@ -53,7 +61,10 @@ fn tangent_line(p1: (f64, f64), p2: (f64, f64), r1: f64, r2: f64) -> (f64, f64) 
     (dx, dy)
 }
 
-fn circle_network(color1: &str, color2: &str, color3: &str, v: &[((f64, f64), f64)]) -> Graphic {
+fn circle_network(
+    color1: &str, color2: &str, color3: &str, 
+    v: &[((f64, f64), f64)]
+) -> Graphic {
     let mut i = 0;
     let mut v_iter = v.iter();
     let mut c1: &((f64, f64), f64);
@@ -75,7 +86,6 @@ fn circle_network(color1: &str, color2: &str, color3: &str, v: &[((f64, f64), f6
     let mut angle: (f64, f64);
 
     let mut polygon: Graphic;
-    let _aass = "1000000000";
 
     c1 = v_iter.next().unwrap();
     while v.len() - 1 > i {
@@ -94,7 +104,7 @@ fn circle_network(color1: &str, color2: &str, color3: &str, v: &[((f64, f64), f6
         circle1.add_attr(ATTR!("cx", p1.0));
         circle1.add_attr(ATTR!("cy", p1.1));
         circle1.add_attr(ATTR!("r", r1));
-        circle1.center = (p1.0, p1.1, 0.0);
+        circle1.center = Coordinate{ x: p1.0, y: p1.1, z: 0.0};
         circle1.add_weight(r1);
 
 
@@ -110,14 +120,17 @@ fn circle_network(color1: &str, color2: &str, color3: &str, v: &[((f64, f64), f6
 
         // Alternate the color
         if i%2==1 {
-            g.add_child(radial_gradient(&format!("grad{}", id), color1, color2, color3, p2, radius));
+            g.add_child(radial_gradient(
+                &format!("grad{}", id), color1, color2, color3, p2, radius));
         } else {
-            g.add_child(radial_gradient(&format!("grad{}", id), color3, color2, color1, p2, radius));
+            g.add_child(radial_gradient(
+                &format!("grad{}", id), color3, color2, color1, p2, radius));
         }
         g.add_attr(ATTR!("fill", format!("url(#grad{})", id)));
 
         polygon = Graphic::new("polygon");
-        polygon.add_attr(format!("points=\"{p1_x},{p1_y} {p2_x},{p2_y} {p3_x},{p3_y} {p4_x},{p4_y}\"", 
+        polygon.add_attr(format!(
+            "points=\"{p1_x},{p1_y} {p2_x},{p2_y} {p3_x},{p3_y} {p4_x},{p4_y}\"", 
                 p1_x = p1.0 + r1 * angle.0,
                 p1_y = p1.1 + r1 * angle.1,
                 p2_x = p2.0 + r2 * angle.0,
@@ -155,9 +168,9 @@ impl PicaasProfile {
 
         profile.text_colors.push("white".into());
         profile.text_colors.push("yellow".into());        
-        profile.primary_colors.push("#0F2027".into());
-        profile.primary_colors.push("#203A43".into());
-        profile.primary_colors.push("#2C5364".into());
+        profile.primary_colors.push("orange".into());
+        profile.primary_colors.push("yellow".into());
+        profile.primary_colors.push("orange".into());
         profile.background_colors.push("#0F2027".into());
         profile.font_family.push("Zilla Slab".into());
         profile.font_family.push("monospace".into());
@@ -176,27 +189,46 @@ impl Profile for PicaasProfile {
 
     fn background_colors(&self) -> &Vec<String> { &self.background_colors }
 
-    fn main_background(&self, x: f64, y:f64, width:f64, height: f64) -> Graphic {
+    fn main_background(
+        &self, 
+        x: f64, y:f64, 
+        width:f64, height: f64
+    ) -> Graphic {
         let mut rng = thread_rng();
                     
         let mut position: (f64, f64);
         let mut radius: f64;
 
+        let mut points: Vec<WeightedCoordinate> = Vec::new();
         let mut circle_list = Vec::new();
         
-        // Create 3 to 7 random circles with size 1 to 6
         for _ in 0..rng.gen_range(3, 7) {
-            position = (rng.gen_range(x, x + width), rng.gen_range(y, y + height));
-            radius = rng.gen_range(0.5, 7.0);
+            let x = rng.gen_range(x, x + width);
+            let y = rng.gen_range(y, y + height);
+            
+            position = (x, y);
+            radius = rng.gen_range(0.5, 4.0);
             circle_list.push((position, radius));
+            // To calculate center of mass
+            // Use radius as weight
+            points.push(WeightedCoordinate{
+                    weight: radius, 
+                    coordinate: Coordinate{x, y, z: 0.0}
+                });
         }
 
-        // Connect the circles smoothly
-        circle_network(
+        let mut background: Graphic = circle_network(
             &self.primary_colors[0], 
             &self.primary_colors[1], 
             &self.primary_colors[2], 
-            &circle_list)
+            &circle_list
+        );       
+
+        // Calculate center of mass
+        let center_point = helpers::calc_center_of_mass(points);
+        background.add_weight(center_point.weight);
+        background.center = center_point.coordinate;
+        background
     }
 
     fn logo(&self, x: f64, y: f64, size: f64) -> Graphic {

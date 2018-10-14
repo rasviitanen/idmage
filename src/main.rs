@@ -7,24 +7,29 @@
 extern crate svgmacro;
 extern crate rocket;
 extern crate rand;
+extern crate rulinalg;
 
 use std::io;
 
 use rocket::response::NamedFile;
 use rocket::response::content;
 
-use agent::canvas::balancer::Balancer;
-use agent::canvas::painter::Painter;
+use agent::observer::balancer::Balancer;
+use agent::modifier::painter::Painter;
 
-mod controller;
 #[macro_use]
 mod svgpower;
-
+#[macro_use]
+mod controller;
 mod agent;
 mod builder;
+#[allow(dead_code)]
 mod canvas;
 mod graphic;
 mod profiles;
+#[macro_use]
+mod math;
+mod metrics;
 
 #[get("/")]
 fn index() -> &'static str {
@@ -38,7 +43,7 @@ fn canvas() -> io::Result<NamedFile> {
 
 #[get("/generate")]
 fn generate() -> content::Xml<String> {
-    let mut canvas = canvas::Canvas::new(1280.0, 420.0);
+    let mut canvas = canvas::Canvas::new(625.0, 1018.0);
     let mut controller = controller::Controller::new(&mut canvas);
     controller.register_agent(Box::new(Painter::new()));
     controller.register_agent(Box::new(Balancer::new()));

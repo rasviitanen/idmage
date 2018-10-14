@@ -2,7 +2,7 @@
 //! or execute their previous.
 use canvas::Canvas;
 use builder;
-use agent::canvas::canvasagent::CanvasAgent;
+use agent::canvasagent::CanvasAgent;
 
 pub struct Controller<'a> {
     canvas: &'a mut Canvas,
@@ -22,9 +22,12 @@ impl<'a> Controller<'a> {
     }
     
     pub fn tick(&mut self) {
-        for agent in &mut self.agents {
-            agent.update(self.canvas);
-            agent.execute(self.canvas);
+        for _ in 0..1 {
+            for agent in &mut self.agents {
+                println!("{:?}", self.canvas.get_metrics());
+                agent.update(self.canvas);
+                agent.execute(self.canvas);
+            }
         }
     }
 

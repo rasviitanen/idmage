@@ -5,5 +5,5 @@ use canvas::Canvas;
 /// Canvas agents should be as tiny and narrow as possible
 pub trait CanvasAgent {
     fn update(&mut self, canvas: &Canvas);
-    fn execute(&mut self, canvas: &mut Canvas);
+    fn execute(&self, canvas: &mut Canvas);
 }
