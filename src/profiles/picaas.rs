@@ -168,10 +168,10 @@ impl PicaasProfile {
 
         profile.text_colors.push("white".into());
         profile.text_colors.push("yellow".into());        
-        profile.primary_colors.push("orange".into());
-        profile.primary_colors.push("yellow".into());
-        profile.primary_colors.push("orange".into());
-        profile.background_colors.push("#0F2027".into());
+        profile.primary_colors.push("blue".into());
+        profile.primary_colors.push("purple".into());
+        profile.primary_colors.push("blue".into());
+        profile.background_colors.push("blue".into());
         profile.font_family.push("Zilla Slab".into());
         profile.font_family.push("monospace".into());
 
@@ -207,7 +207,7 @@ impl Profile for PicaasProfile {
             let y = rng.gen_range(y, y + height);
             
             position = (x, y);
-            radius = rng.gen_range(0.5, 4.0);
+            radius = rng.gen_range(100.0, 300.0);
             circle_list.push((position, radius));
             // To calculate center of mass
             // Use radius as weight

@@ -16,10 +16,10 @@ impl Balancer {
 }
 
 impl CanvasAgent for Balancer {
-    fn update(&mut self, canvas: &Canvas) {
+    fn update(&mut self, canvas: &Canvas) -> Option<Request> {
         // Calculate center of mass
+        let mut request = None;
         let mut center: Coordinate = Coordinate{x: 0.0, y: 0.0, z: 0.0};
-    
         let mut total_mass = 0.0;
 
         for graphic in canvas.graphics() {
@@ -39,7 +39,8 @@ impl CanvasAgent for Balancer {
 
         // If the state has changed, we request to update the center of mass
         if center != *(canvas.center_of_mass()) {
-            self.request = Some(request!(
+            request = Some(request!(
+                "Balancer",
                 100,
                 move |canvas: &mut Canvas| {
                     canvas.set_center_of_mass(&center);
@@ -47,6 +48,7 @@ impl CanvasAgent for Balancer {
             ));
         }
 
+        request
     }
 
     fn execute(&self, canvas: &mut Canvas) {
@@ -59,6 +61,5 @@ impl CanvasAgent for Balancer {
                 println!("{:?}", "No request to be executed by Balancer");
             }
         }
-        println!("{:?}", canvas.center_of_mass());
     }
 }

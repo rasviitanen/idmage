@@ -45,8 +45,8 @@ fn canvas() -> io::Result<NamedFile> {
 fn generate() -> content::Xml<String> {
     let mut canvas = canvas::Canvas::new(625.0, 1018.0);
     let mut controller = controller::Controller::new(&mut canvas);
-    controller.register_agent(Box::new(Painter::new()));
-    controller.register_agent(Box::new(Balancer::new()));
+    controller.register_modifier(Box::new(Painter::new()));
+    controller.register_observer(Box::new(Balancer::new()));
     controller.tick();
     let out = controller.build();
     content::Xml(out.to_string())
@@ -56,8 +56,8 @@ fn generate() -> content::Xml<String> {
 fn create() -> content::Xml<String> {
     let mut canvas = canvas::Canvas::new(1920.0, 1080.0);
     let mut controller = controller::Controller::new(&mut canvas);
-    controller.register_agent(Box::new(Painter::new()));
-    controller.register_agent(Box::new(Balancer::new()));
+    controller.register_modifier(Box::new(Painter::new()));
+    controller.register_observer(Box::new(Balancer::new()));
     controller.tick();
     let out = controller.build();
     content::Xml(out.to_string())

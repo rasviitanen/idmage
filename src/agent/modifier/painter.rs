@@ -17,9 +17,12 @@ impl Painter {
 }
 
 impl CanvasAgent for Painter {
-    fn update(&mut self, _: &Canvas) {
+    fn update(&mut self, _: &Canvas) -> Option<Request> {
+        let mut request = None;
         let impact: ImpactMetricValue = 100;
-        self.request = Some(request!(
+        
+        request = Some(request!(
+            "Painter",
             impact,
             move |canvas: &mut Canvas| {
                 let (width, height) = canvas.dimensions();
@@ -29,6 +32,8 @@ impl CanvasAgent for Painter {
                 canvas.add_graphic(background);
             }
         ));
+
+        request
     }
 
     fn execute(&self, canvas: &mut Canvas) {

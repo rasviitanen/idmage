@@ -22,6 +22,8 @@ pub fn build(canvas: &Canvas) -> String {
                 @ for graphic in canvas.graphics() {
                     construct(&mut out, graphic);
                 };
+                // Debug
+                circle(cx={canvas.center_of_mass().x} cy={canvas.center_of_mass().y} r="10" stroke="white")
             ]
     );
     
